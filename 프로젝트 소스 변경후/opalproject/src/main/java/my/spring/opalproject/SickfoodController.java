@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.dao.SickfoodDAO ;
-import model.vo.SickfoodVO;
+import model.vo.GoodfoodVO;
+import model.vo.BadfoodVO;
 
 @Controller
 public class SickfoodController {
@@ -29,10 +30,10 @@ public class SickfoodController {
 			for(int i = 0 ; i<sick_cd.length;i++)
 				System.out.println("sick_cd : " + sick_cd[i]);
 			ModelAndView mav = new ModelAndView();
-			List<SickfoodVO> list =dao.csickData1(sick_cd);
-			mav.addObject("list",list);
-			for(SickfoodVO i : list)
-				System.out.println(i.getFood_name());
+			List<GoodfoodVO> goodlist =dao.csickData1(sick_cd);
+			mav.addObject("goodlist",goodlist);
+			for(GoodfoodVO i : goodlist)
+				System.out.println(i.getgood_food_name());
 			mav.setViewName("sick1");
 			return mav;			
 		}
