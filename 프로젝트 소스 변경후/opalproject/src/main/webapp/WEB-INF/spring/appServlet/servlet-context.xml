@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:c="http://www.springframework.org/schema/c"
+   xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+   <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+   
+   <!-- Enables the Spring MVC @Controller programming model -->
+   <annotation-driven />
+
+   <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+   <resources mapping="/resources/**" location="/resources/" />
+
+   <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+   <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <beans:property name="prefix" value="/WEB-INF/views/" />
+      <beans:property name="suffix" value=".jsp" />
+   </beans:bean>
+   
+   <context:component-scan base-package="my.spring.opalproject" />
+<context:component-scan base-package="model.dao" />
+   <context:component-scan base-package="model.vo" />
+   <context:component-scan base-package="service" />
+   
+   
+
+         <!-- 뉴스게시판 1단계 -->
+   <!-- 멀티파트리졸버.. org.springfameWork.......얘가 미리 스프링컨테이너에 의해 빈객체로 생성되어 있어야 한다.
+   이러고 파일브이오에 private MultipartFile uploadFile; 멀티파트형으로 객체를 넣어줘서 만들어준다.
+     -->
+     
+          <!--jdbc 연동 끝 -->
+<beans:bean id="dataSource" 
+class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+      <beans:property name="username" value="opal" />
+      <beans:property name="password" value="opal" />      
+</beans:bean>
+   
+<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">   
+      <beans:property name="dataSource" ref="dataSource"/>
+      <beans:property name="configLocation" 
+         value="classpath:/resource/mybatis-config.xml"/>
+      <beans:property name="mapperLocations" 
+         value="classpath:/resource/*Mapper.xml"/>
+</beans:bean> 
+
+<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"  
+destroy-method="clearCache">
+      <beans:constructor-arg index="0"  ref="sqlSessionFactory" />
+</beans:bean>  
+
+   
+   
+</beans:beans> 

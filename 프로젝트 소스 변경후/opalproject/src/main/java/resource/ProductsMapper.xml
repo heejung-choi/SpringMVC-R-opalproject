@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resource.ProductsMapper">
+<!-- 상품 카테고리별 리스트 -->
+	<select id="productlist" resultType="model.vo.MainVO">
+		select 
+		product_cd, product_name, product_content, product_price, farm_cd, cl_uri from clothes
+	</select>	
+</mapper>

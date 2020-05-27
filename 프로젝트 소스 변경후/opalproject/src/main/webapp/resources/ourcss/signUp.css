@@ -1,0 +1,72 @@
+
+
+
+#entrance {
+   height: 600px;
+}
+
+h2 {
+   margin : 50px auto;
+   text-align : center;
+    }
+
+.button{
+   width : 100%;
+   text-align : center;
+   margin-top : 100px;
+}
+
+.customer {
+   background-color: #F78181;
+   border: none;
+   color : white;
+   width: 300px;
+   height: 300px;
+   border-radius: 5px;
+   margin-right : 20px;
+   font-size: 30px;
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.farmer {
+   background-color: #86B404;
+   border: none;
+   color : white;
+   width: 300px;
+   height: 300px;
+   border-radius: 5px;
+   font-size: 30px;
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.customer {
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+
+  transition-duration: 0.4s;
+
+}
+
+.customer:hover {
+
+  background: #B40404; 
+
+  color: white;
+
+}
+
+.farmer {
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+
+  transition-duration: 0.4s;
+
+}
+
+.farmer:hover {
+
+  background: #38610B; 
+
+  color: white;
+
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:security="http://www.springframework.org/schema/security"
+         xmlns:context="http://www.springframework.org/schema/context"
+         xsi:schemaLocation="http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+>
+ 
+<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean> <!-- 아래에서 로그인 시 권한없을 때 이동페이지 설정 등록 빈 -->
+<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+<security:http>
+ 	<!--  200521 김동규 페이지 접근 권한 설정. -->
+ 	<!-- 은하 -->
+	<security:intercept-url pattern="/goods" access="permitAll"/> <!-- 농산물 구매 페이지 / 전체 -->
+	<security:intercept-url pattern="/goodsinsert" access="hasRole('ROLE_CUSTOMER')"/> <!-- 상품 등록 페이지 / 농부 -->
+	<security:intercept-url pattern="/goodsupdate" access="hasRole('ROLE_CUSTOMER')"/> <!-- 상품 등록 업데이트(수정) 페이지 / 농부 -->
+	<security:intercept-url pattern="/basket" access="permitAll"/> <!-- 장바구니 페이지 / 전체 -->
+	<!-- 은하 끝 -->
+	<!-- 희정 -->
+	<security:intercept-url pattern="/datamain" access="permitAll"/> <!-- 질병 Data 분석 내용 표시 페이지 / 전체 -->
+	<security:intercept-url pattern="/datasick1" access="permitAll"/> <!-- 감기/기관지 분석 페이지 / 전체  -->
+	<security:intercept-url pattern="/datasick2" access="permitAll"/> <!-- 고혈압 분석 페이지 / 전체 -->
+	<security:intercept-url pattern="/datasick3" access="permitAll"/> <!-- 당뇨 분석 페이지 / 전체 -->
+	<security:intercept-url pattern="/datasick4" access="permitAll"/> <!-- 위/식도 분석 페이지 / 전체 -->
+	<security:intercept-url pattern="/datasick5" access="permitAll"/> <!-- 대장/췌장 분석 페이지 / 전체 -->
+	<!-- 희정 끝 -->
+	<!-- 해림 -->
+	<security:intercept-url pattern="/main" access="permitAll"/>  <!--  -->
+	<security:intercept-url pattern="/about" access="permitAll"/>
+	<security:intercept-url pattern="/signup" access="permitAll"/>
+	<security:intercept-url pattern="/signup" access="permitAll"/>
+	<security:intercept-url pattern="/admin" access="permitAll"/>
+	<security:intercept-url pattern="/customlogin" access="permitAll"/>
+	<!-- 해림 끝 -->
+	<!-- 200512 김동규 로그인 시 권한이 없다면 이 페이지로 이동한다.  -->
+	<!-- authentication-success-handler-ref="customLoginSuccess" 는  위에 빈으로 등록한 핸들러 id를 쓰면 됨.-->
+<security:form-login 
+username-parameter="cust_id" 
+password-parameter="cust_pw" 
+login-processing-url="/main" 
+login-page="/signin" 
+authentication-success-handler-ref="customLoginSuccess"
+authentication-failure-url="/login?fail=true"/>	
+<security:logout
+ logout-url="/logout" 
+ logout-success-url="/"/>
+<!-- 200515 김동규 로그아웃 처리와 LogoutSuccessHandler -->
+<!-- 	<security:logout logout-url="/customLogout" invalidate-session="true"/>
+ -->	<!-- 200515 김동규 로그아웃 처리와 LogoutSuccessHandler 끝.-->
+	<!-- 200511 김동규 접근 제한 메세지 처리. -->
+	<!-- '/accessError'라는 URI로 접근 제한 시 보이는 화면을 처리함. -->
+<!-- 	<security:access-denied-handler error-page="/accessError"/>
+ -->	<!--  200511 김동규 접근 제한 메세지 처리 끝. -->
+</security:http> 
+
+<security:authentication-manager>
+	<security:authentication-provider user-service-ref="userService" >
+	</security:authentication-provider>
+</security:authentication-manager>
+ <bean id="userService" class="service.CustomCustomerDetailsService"/>
+ 
+
+<!-- <bean id="dataSource" 
+class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+      <property name="username" value="opal" />
+      <property name="password" value="opal" />      
+</bean>
+   
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">   
+      <property name="dataSource" ref="dataSource"/>
+      <property name="configLocation" 
+         value="classpath:/resource/mybatis-config.xml"/>
+      <property name="mapperLocations" 
+         value="classpath:/resource/*Mapper.xml"/>
+</bean> 
+
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"  
+destroy-method="clearCache">
+      <constructor-arg index="0"  ref="sqlSessionFactory" />
+</bean>  
+     jdbc 연동 끝
+<bean id="userService" class="service.CustomCustomerDetailsService" >
+      <property name="customerAuthDAO"  ref="customerAuthDAO" />
+</bean>  
+<bean id="customerAuthDAO" class="model.dao.CustomerAuthDAO" >
+      <property name="session"  ref="sqlSession" />
+</bean>   -->
+
+
+
+</beans>

@@ -1,0 +1,53 @@
+#goodsInsert {
+	height: 1500px;
+	margin-top : 100px;
+}
+
+.goodswrap {
+	
+	width:100%;
+	margin:20px auto;
+}
+
+.goodsfeagure {
+	
+	width:700px;
+	margin : auto;
+}
+
+.insert_button {
+	background-color: #04B431;
+	border: none;
+	color: white;
+	padding: 10px 30px;
+	width: 400px;
+	margin-top : 5px;
+}
+
+.insert_button {
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+
+  transition-duration: 0.4s;
+
+}
+
+.insert_button:hover {
+
+  background: #088A08; 
+
+  color: white;
+
+}
+
+.submit_button {
+	width : 100%;
+	margin : auto;
+	margin-top:50px;
+}
+
+.submit_figure {
+	text-align : center;
+}
+
+.hr_1 {width:100%; float:left;}

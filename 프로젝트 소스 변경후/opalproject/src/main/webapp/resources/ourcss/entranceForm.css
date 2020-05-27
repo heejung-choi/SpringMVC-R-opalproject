@@ -1,0 +1,34 @@
+
+
+#entrance {
+	height: 1500px;
+}
+
+h2 {
+	margin : 50px auto;
+	margin-left : 100px;
+    }
+
+table{
+	margin : auto;
+	margin-top : 100px;
+}
+
+th, td {
+    border-bottom: 1px solid #BDBDBD;
+    padding: 20px;
+  }
+  
+.td_name {width:200px;}.td_text {width:700px;}
+
+span {
+	font-size : 15px;
+	color : #A4A4A4;
+}
+
+.button {
+	width : 100%;
+	margin : auto;
+	margin-top : 50px;
+	text-align : center;
+}
