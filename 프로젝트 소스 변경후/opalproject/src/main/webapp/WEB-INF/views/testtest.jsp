@@ -15,13 +15,15 @@
 </head>
 <body>
    <h1>테스트</h1>
-   <!--20200526  희정 체크박스 value값 받아오기  -->
+   <!--20200526  체크박스 value값 받아오기  -->
+   헤헤
+   <h1>
       <%
          ArrayList<GoodfoodVO> goodlist = (ArrayList<GoodfoodVO>) request.getAttribute("goodlist");
          ArrayList<BadfoodVO> badlist = (ArrayList<BadfoodVO>) request.getAttribute("badlist");
       %>
- 
-<!--20200528 희정 좋은 음식, 나쁜음식 교차 구문  -->
+   </h1>
+
    <h3>
       <%
          System.out.println("---------------");
@@ -71,34 +73,19 @@
                }
             }     
             if(delFlag){
-            	
                 delList.add(i);
             }
              delFlag = true;
         }
-         System.out.println("golist테스트"+goodlist.get(0).toString());                
-         System.out.println("deList는?"+delList.toString());
-         
+
           for(int i=0; i < delList.size(); i++){
               int delIndex = delList.get(i);
-               goodlist.remove(delIndex-i);
-               System.out.println("삭제된 인덱스"+(delIndex-i));
+               goodlist.remove(delIndex);
             }   
-          
-         %>
          
-         <%System.out.println("goodlist?" + goodlist.toString());
-  		for(GoodfoodVO vo : goodlist) {
-  			%>
-  			<%=vo.getfood_cd() %>
-  			<%=vo.getfood_img() %>
-  			<%=vo.getfood_name() %>
-  			<%} %>
-  			
-  			
-      
          
-     
+         System.out.println("goodlist?" + goodlist.toString());
+      %>
    </h3>
 
 </body>

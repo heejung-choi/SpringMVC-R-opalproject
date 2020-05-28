@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import model.vo.GoodfoodVO;
+import model.vo.BadfoodVO;
 
 @Repository
 public class SickfoodDAO {
@@ -34,6 +35,24 @@ public class SickfoodDAO {
 		return goodlist;
 	}
 	
+	
+	public List<BadfoodVO> csickData2(String[] sick_cd) {
+		List<BadfoodVO> badlist = new ArrayList<BadfoodVO>();
+		List<BadfoodVO> tempbadlist = new ArrayList<BadfoodVO>();
+		String statment = "resource.DataMapper.csickData2";
+				
+	for(int i = 0 ; i<sick_cd.length;i++) {
+		if(session.selectList(statment,sick_cd[i]).size()>=2) {
+			tempbadlist = session.selectList(statment,sick_cd[i]);
+			for(BadfoodVO vo : tempbadlist)
+				badlist.add(vo);
+		}
+		else {
+			badlist.add((BadfoodVO) session.selectOne(statment,sick_cd[i]));
+		}
+	}
+		return badlist;
+	}
 	
 	
 	

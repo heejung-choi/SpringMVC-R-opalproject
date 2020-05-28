@@ -4,28 +4,28 @@ package model.vo;
 public class BadfoodVO {
 //20200526 BadfoodVO생성
 	// 음식 코드
-	private String bad_food_cd;
+	private String food_cd;
 	// 음식 이름
-	private String bad_food_name;
+	private String food_name;
 	// 질병 코드
 	private String sick_cd;
 	// 음식 이미지
-	private String bad_food_img;
+	private String food_img;
 
-	public String getbad_food_cd() {
-		return bad_food_cd;
+	public String getfood_cd() {
+		return food_cd;
 	}
 
-	public void setbad_food_cd(String bad_food_cd) {
-		this.bad_food_cd = bad_food_cd;
+	public void setfood_cd(String food_cd) {
+		this.food_cd = food_cd;
 	}
 
-	public String getbad_food_name() {
-		return bad_food_name;
+	public String getfood_name() {
+		return food_name;
 	}
 
-	public void setbad_food_name(String bad_food_name) {
-		this.bad_food_name = bad_food_name;
+	public void setfood_name(String food_name) {
+		this.food_name = food_name;
 	}
 
 	public String getSick_cd() {
@@ -36,17 +36,22 @@ public class BadfoodVO {
 		this.sick_cd = sick_cd;
 	}
 
-	public String getbad_food_img() {
-		return bad_food_img;
+	public String getfood_img() {
+		return food_img;
 	}
 
-	public void setbad_food_img(String bad_food_img) {
-		this.bad_food_img = bad_food_img;
+	public void setfood_img(String food_img) {
+		this.food_img = food_img;
 	}
 
 	@Override
 	public String toString() {
-		return "BadfoodVO[bad_food_cd=" + bad_food_cd + ", bad_food_name=" + bad_food_name + ", sick_cd=" + sick_cd + ",bad_food_img="
-				+ bad_food_img + "]";
+		return "[food_cd=" + food_cd + ", food_name=" + food_name +  "]";
 	}
+	
+	/*
+	 * public String toString() { return "BadfoodVO[food_cd=" + food_cd +
+	 * ", food_name=" + food_name + ", sick_cd=" + sick_cd + ",food_img=" + food_img
+	 * + "]"; }
+	 */
 }

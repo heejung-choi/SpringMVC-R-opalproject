@@ -29,11 +29,19 @@ public class SickfoodController {
 		public ModelAndView sick1(String[] sick_cd) {
 			for(int i = 0 ; i<sick_cd.length;i++)
 				System.out.println("sick_cd : " + sick_cd[i]);
+			
 			ModelAndView mav = new ModelAndView();
 			List<GoodfoodVO> goodlist =dao.csickData1(sick_cd);
+			List<BadfoodVO> badlist =dao.csickData2(sick_cd);
+			
 			mav.addObject("goodlist",goodlist);
+			mav.addObject("badlist",badlist);
+			
 			for(GoodfoodVO i : goodlist)
-				System.out.println(i.getgood_food_name());
+				System.out.println(i.getfood_name());
+			for(BadfoodVO i : badlist)
+				System.out.println(i.getfood_name());
+			
 			mav.setViewName("sick1");
 			return mav;			
 		}
