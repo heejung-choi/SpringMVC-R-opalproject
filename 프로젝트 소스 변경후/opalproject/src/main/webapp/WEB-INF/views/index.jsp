@@ -67,10 +67,8 @@
 
 	<section id="works" class="works section no-padding">
 		<!-- 20200526 희정 checkbox 체크 개수 파악 -->
-		<form action="/opalproject/sick1" method="GET">
+		<form action="/opalproject/sick1" method="POST">
 			<div class="SicknessWrap">
-
-
 				<div class="sickness">
 					<img src="resources/ache/toothache.png" width="100" alt="">
 					<div id="check_item">

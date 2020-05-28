@@ -25,10 +25,32 @@ public class SickfoodController {
 	}
 	*/
 				
-		@RequestMapping(value = "/sick1", method = RequestMethod.GET)
+		@RequestMapping(value = "/sick1")
 		public ModelAndView sick1(String[] sick_cd) {
 			for(int i = 0 ; i<sick_cd.length;i++)
 				System.out.println("sick_cd : " + sick_cd[i]);
+			
+			ModelAndView mav = new ModelAndView();
+			List<GoodfoodVO> goodlist =dao.csickData1(sick_cd);
+			List<BadfoodVO> badlist =dao.csickData2(sick_cd);
+			
+			mav.addObject("goodlist",goodlist);
+			mav.addObject("badlist",badlist);
+			mav.addObject("sick_cd", sick_cd);
+			
+			for(GoodfoodVO i : goodlist)
+				System.out.println(i.getfood_name());
+			for(BadfoodVO i : badlist)
+				System.out.println(i.getfood_name());
+			
+			mav.setViewName("sick1");
+			return mav;			
+		}
+		
+		@RequestMapping(value = "/sick2")
+		public ModelAndView sick2(String[] sick_cd) {
+			for(int i = 0 ; i<sick_cd.length;i++)
+				System.out.println("2222222sick_cd : " + sick_cd[i]);
 			
 			ModelAndView mav = new ModelAndView();
 			List<GoodfoodVO> goodlist =dao.csickData1(sick_cd);
@@ -42,7 +64,7 @@ public class SickfoodController {
 			for(BadfoodVO i : badlist)
 				System.out.println(i.getfood_name());
 			
-			mav.setViewName("sick1");
+			mav.setViewName("sick2");
 			return mav;			
 		}
 		
