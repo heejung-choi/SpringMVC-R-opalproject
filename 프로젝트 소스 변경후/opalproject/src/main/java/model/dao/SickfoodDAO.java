@@ -7,8 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import model.vo.GoodfoodVO;
 import model.vo.BadfoodVO;
+import model.vo.GoodfoodVO;
+import model.vo.SickVO;
 
 @Repository
 public class SickfoodDAO {
@@ -52,6 +53,24 @@ public class SickfoodDAO {
 		}
 	}
 		return badlist;
+	}
+	
+	public List<SickVO> csickData3(String[] sick_cd) {
+		List<SickVO> sicklist = new ArrayList<SickVO>();
+		List<SickVO> tempsicklist = new ArrayList<SickVO>();
+		String statment = "resource.DataMapper.csickData3";
+				
+	for(int i = 0 ; i<sick_cd.length;i++) {
+		if(session.selectList(statment,sick_cd[i]).size()>=2) {
+			tempsicklist = session.selectList(statment,sick_cd[i]);
+			for(SickVO vo : tempsicklist)
+				sicklist.add(vo);
+		}
+		else {
+			sicklist.add((SickVO) session.selectOne(statment,sick_cd[i]));
+		}
+	}
+		return sicklist;
 	}
 	
 	
