@@ -24,11 +24,11 @@
 	<h1>상관관계 분석 결과</h1>
 	<h3>
 		<%
-			System.out.println("---------------");
+/* 			System.out.println("---------------");
 			System.out.println("goodlist 사이즈는?:" + goodlist.size());
 			System.out.println("badlist 사이즈는?:" + badlist.size());
 			System.out.println("goodlist 값"+goodlist.toString());
-			System.out.println("badlist 값"+badlist.toString());
+			System.out.println("badlist 값"+badlist.toString()); */
 		%>
 		
 		<%
@@ -47,9 +47,7 @@
 			boolean flag = true;
 			for (int i = 0; i <= listA.size() - 1; i++) {
 				for (int j = 0; j <= listB.size() - 1; j++) {
-					if (listA.get(i).equals(listB.get(j))) {
-						System.out.println("A의 값은?" + listA.get(i));
-						System.out.println("B의 값은" + listB.get(j));
+					if (listA.get(i).equals(listB.get(j))) {	
 						flag = false;
 						break;
 					}
@@ -65,8 +63,8 @@
 			for (int i = 0; i <= listB.size() - 1; i++) {
 				for (int j = 0; j <= listA.size() - 1; j++) {
 					if (listA.get(j).equals(listB.get(i))) {
-						System.out.println("A의 값은?" + listA.get(j));
-						System.out.println("B의 값은" + listB.get(i));
+/* 						System.out.println("A의 값은?" + listA.get(j));
+						System.out.println("B의 값은" + listB.get(i)); */
 						flag2 = false;
 						break;
 					}
@@ -77,11 +75,11 @@
 				flag2 = true;
 			}
 			
-			System.out.println("listA?" + listA.toString());
+/* 			System.out.println("listA?" + listA.toString());
 			System.out.println("listB?" + listB.toString());
 			System.out.println("listC?" + listC.toString());
 			System.out.println("listD?" + listD.toString());
-			System.out.println("goodlist?" + goodlist.toString());
+			System.out.println("goodlist?" + goodlist.toString()); */
 
 			ArrayList<Integer> delgoodList = new ArrayList<>();
 			boolean goodFlag = true;
@@ -98,8 +96,8 @@
 				}
 				goodFlag = true;
 			}
-			System.out.println("golist테스트" + goodlist.get(0).toString());
-			System.out.println("delgoodList는?" + delgoodList.toString());
+/* 			System.out.println("golist테스트" + goodlist.get(0).toString());
+			System.out.println("delgoodList는?" + delgoodList.toString()); */
 
 			ArrayList<Integer> delbadList = new ArrayList<>();
 			boolean badFlag = true;
@@ -116,7 +114,7 @@
 				badFlag = true;
 			}
 
-			System.out.println("delbadList는?" + delbadList.toString());
+/* 			System.out.println("delbadList는?" + delbadList.toString()); */
 
 			for (int i = 0; i < delgoodList.size(); i++) {
 				int delIndex = delgoodList.get(i);
@@ -126,7 +124,7 @@
 		%>
 
 		<%
-			System.out.println("goodlist?" + goodlist.toString());
+			/* System.out.println("goodlist?" + goodlist.toString()); */
 		%>
 		
 		<h1>-------------------------------------------</h1>
