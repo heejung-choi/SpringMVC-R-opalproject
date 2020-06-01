@@ -30,20 +30,10 @@ height: 100px;
 	<% String[] sick_cd =(String[])request.getAttribute("sick_cd"); %>
 	<!--20200528 희정 좋은 음식, 나쁜음식 교차 구문  -->
 	<h1>상관관계 분석 결과</h1>
-		<h2>
-		고객님께서 선택하신 질병은
-		<%for(int i=0; i<sick_cd.length;i++) {%>
-		<%if(i==0) {%>
-		<%=sicklist.get(i).getSick_name().toString() %>
-		<%} else if(i>=1){%>,
-		<%=sicklist.get(i).getSick_name().toString() %>
-		<%} %>
-		<%} %>
-		입니다. 해당 질병에 대한 상관관계를 분석하여 고객님 건강에 좋은 맞춤형 음식을 추천해드리겠습니다.
-		
-	</h2>
+	
+		<!--20200528 희정 선택 질병 출력부분 시작 -->
+
 	<!--20200528 희정 선택 질병 출력부분 끝 -->
-		
 	<h3>
 		<%
 /* 			System.out.println("---------------");
@@ -97,7 +87,7 @@ height: 100px;
 				flag2 = true;
 			}
 			
-/* 			System.out.println("listA?" + listA.toString());////////////////////////////////////////////////////////////
+/* 			System.out.println("listA?" + listA.toString());
 			System.out.println("listB?" + listB.toString());
 			System.out.println("listC?" + listC.toString());
 			System.out.println("listD?" + listD.toString());
@@ -159,12 +149,7 @@ height: 100px;
 		<br>
 		<%=vo.getfood_name()%>
 		<%
-		ArrayList<String> foodp = new ArrayList<>();
-		foodp.add(vo.getfood_cd());
-		%>
-		<%
 			}
-
 		%>
 		</div>
 		<h1>-------------------------------------------</h1>
@@ -180,6 +165,10 @@ height: 100px;
 		<%
 			}
 		%>
+
+
+
+
 	</h3>
 	
 	<h3>질병을 다시 선택하시려면 질병 다시 선택하기 버튼을 눌러주세요.</h3>

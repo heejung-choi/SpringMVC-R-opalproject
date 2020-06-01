@@ -13,6 +13,12 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<style>
+img{
+width: 100px;
+height: 100px;
+}
+</style>
 </head>
 <body>
 	<!--20200526  희정 체크박스 value값 받아오기 시작  -->
@@ -41,19 +47,20 @@
 	<h2>
 		<br> 질병에 좋은 음식에 대해 소개해드리겠습니다. <br>
 		
-		
+		<%String[] sickname ={"질병","치주질환","기관지염/비염","고혈압","척추질환","식도/위/식이지장염","장염/결장염","피부염","당뇨병","백내장","무릎관절증","어지럼증","어깨병변"}; %>
 		<!--20200529 희정 좋은 음식 출력 부분 시작 -->
 		<%for(int j=0; j<goodlist.size();j++) {%>
 		<%if(goodlist.get(j).getSick_cd().equals("1")){ 
 				if(sick){%>
-							치주질환에 좋은 음식입니다. <br>
+							<%=sickname[j]%>에 좋은 음식입니다. <br>
 							<%sick=false; %>
 							<%}%>
-		<%=goodlist.get(j).getfood_img()%>
+		<img src="<%=goodlist.get(j).getfood_img()%>">
 		<br>
 		<%=goodlist.get(j).getfood_name()%>
 		<br>
 		<%}}sick=true;%>
+
 		<!--20200529 희정 좋은 음식 출력 부분 끝 -->
 		<%System.out.println("-----------"+badlist.get(0).getSick_cd()); %>
 				<!--20200529 희정 나쁜 음식 출력 부분 시작 -->
@@ -61,11 +68,11 @@
 			if(badlist.get(j).getSick_cd().equals("1")){ 
 				if(sick){%>치주질환에 나쁜 음식입니다. <br>
 							<%sick=false;}%>
-		<%=badlist.get(j).getfood_img()%>
+		<img src="<%=badlist.get(j).getfood_img()%>">
 		<br>
 		<%=badlist.get(j).getfood_name()%>
 		<br>
-		<%sick=true;}}%>
+		<%}}sick=true;%>
 		
 		<!--20200529 희정 좋은 음식 출력 부분 끝 -->
 		

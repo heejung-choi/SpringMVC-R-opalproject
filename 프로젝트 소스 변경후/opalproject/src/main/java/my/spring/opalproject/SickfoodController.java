@@ -50,16 +50,33 @@ public class SickfoodController {
 	@RequestMapping(value = "/sick2")
 	public ModelAndView sick2(String[] sick_cd) {
 		for (int i = 0; i < sick_cd.length; i++)
-			System.out.println("2sick_cd : " + sick_cd[i]);
+			System.out.println("sick_cd : " + sick_cd[i]);
 
 		ModelAndView mav = new ModelAndView();
 		List<GoodfoodVO> goodlist = dao.csickData1(sick_cd);
 		List<BadfoodVO> badlist = dao.csickData2(sick_cd);
+		List<SickVO> sicklist = dao.csickData3(sick_cd);
 
 		mav.addObject("goodlist", goodlist);
 		mav.addObject("badlist", badlist);
+		mav.addObject("sicklist", sicklist);
+		mav.addObject("sick_cd", sick_cd);
 
 		mav.setViewName("sick2");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/sick4")
+	public ModelAndView sick4(String[] sick_cd) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("sick4");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/sick5")
+	public ModelAndView sick5(String[] sick_cd) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("sick5");
 		return mav;
 	}
 
