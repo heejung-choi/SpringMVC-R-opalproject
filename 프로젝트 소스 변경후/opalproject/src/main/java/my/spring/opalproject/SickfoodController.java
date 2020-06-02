@@ -65,7 +65,13 @@ public class SickfoodController {
 		mav.setViewName("sick2");
 		return mav;
 	}
-	
+	@RequestMapping(value = "/sick3")
+	public ModelAndView sick3(String[] food_cd) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("food_cd", food_cd);
+		mav.setViewName("sick3");
+		return mav;
+	}
 	@RequestMapping(value = "/sick4")
 	public ModelAndView sick4(String[] sick_cd) {
 		ModelAndView mav = new ModelAndView();

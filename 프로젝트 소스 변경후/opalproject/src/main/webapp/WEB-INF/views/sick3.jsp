@@ -1,178 +1,110 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ page import="model.vo.GoodfoodVO"%>
 <%@ page import="model.vo.BadfoodVO"%>
 <%@ page import="model.vo.SickVO"%>
-<%@ page import="java.util.List"%>
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-img{
-width: 100px;
-height: 100px;
+#chartdiv {
+	width: 100%;
+	height: 600px;
 }
 </style>
 </head>
 <body>
-	<!--20200526  희정 체크박스 value값 받아오기  -->
+	<!-- 20200601 희정 그래프 출력부분 js 시작-->
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+	<!-- 20200601 희정 그래프 출력부분 js 끝-->
+	<h1>테스트임당</h1>
+	<!-- 20200602 희정 이전 페이지에서 food_cd 받아와서 자바스크립트로 보내기 시작 -->
 	<%
-		ArrayList<GoodfoodVO> goodlist = (ArrayList<GoodfoodVO>) request.getAttribute("goodlist");
-		ArrayList<BadfoodVO> badlist = (ArrayList<BadfoodVO>) request.getAttribute("badlist");
-		ArrayList<SickVO> sicklist = (ArrayList<SickVO>) request.getAttribute("sicklist");
+		String[] food_cd = (String[]) request.getAttribute("food_cd");
+		ArrayList<Integer> food_cd2 = new ArrayList<>();
+		for (int i = 0; i < food_cd.length; i++) {
+			food_cd2.add(Integer.parseInt(food_cd[i]));
+		}
 	%>
-	<% String[] sick_cd =(String[])request.getAttribute("sick_cd"); %>
-	<!--20200528 희정 좋은 음식, 나쁜음식 교차 구문  -->
-	<h1>상관관계 분석 결과</h1>
-	
-		<!--20200528 희정 선택 질병 출력부분 시작 -->
+	<%
+		System.out.println(food_cd2.get(1));
+	%>
+	<%
+		for (int i = 0; i < food_cd2.size(); i++) {
+	%>
+	<input type="hidden" name="food_cd2" value="<%=food_cd2.get(i)%>">
+	<%
+		}
+		System.out.println("이거다" + food_cd2);
+	%>
+	<!-- 20200602 희정 이전 페이지에서 food_cd 받아와서 자바스크립트로 보내기 끝 -->
+	<script>
+	/*20200601 희정 자바코드 자바스크립트로 변환 시작  */
+		var xhr = new XMLHttpRequest();
 
-	<!--20200528 희정 선택 질병 출력부분 끝 -->
-	<h3>
-		<%
-/* 			System.out.println("---------------");
-			System.out.println("goodlist 사이즈는?:" + goodlist.size());
-			System.out.println("badlist 사이즈는?:" + badlist.size());
-			System.out.println("goodlist 값"+goodlist.toString());
-			System.out.println("badlist 값"+badlist.toString()); */
-		%>
+		//foodarray 1: 
+		var array = new Array();
+		array =
+	<%=food_cd2%>
+		; // Array : food_cd2 배열 (좋은 음식에 대한 코드값)
+		var leng = array.length; // 좋은 음식에 대한 코드값(Array 배열)의 길이
+		console.log(leng); // 24
+		/*20200601 희정 자바코드 자바스크립트로 변환 끝  */
 		
-		<%
-			List<String> listA = new ArrayList<String>();
-			List<String> listB = new ArrayList<String>();
-			List<String> listC = new ArrayList<String>();
-			List<String> listD = new ArrayList<String>();
+		/*20200602 희정 json으로 받아와서 2차원배열에 저장 시작  */
+		var foodarr = new Array(21);
+		// (foodarr2,foodarr3);  // foodarr[][]; 이차원 빈 배열 선언
 
-			for (int i = 0; i <= goodlist.size() - 1; i++) {
-				listA.add(i, goodlist.get(i).getfood_cd().toString());
+		xhr.onload = function() {
+			console.log(xhr.status);
+			if (xhr.status == 200) {
+				var str = xhr.responseText;
+				var data = JSON.parse(str);
+				for (var i = 0; i < 21; i++) {
+					foodarr[i] = [];
+				}
+				for (var i = 0; i < array.length; i++) {
+					foodarr[0].push(data[array[i]].food_name);
+					foodarr[1].push(data[array[i]].에너지);
+					foodarr[2].push(data[array[i]].수분);
+					foodarr[3].push(data[array[i]].단백질);
+					foodarr[4].push(data[array[i]].지질);
+					foodarr[5].push(data[array[i]].탄수화물);
+					foodarr[6].push(data[array[i]].총당류);
+					foodarr[7].push(data[array[i]].총식이섬유);
+					foodarr[8].push(data[array[i]].칼슘);
+					foodarr[9].push(data[array[i]].철);
+					foodarr[10].push(data[array[i]].마그네슘);
+					foodarr[11].push(data[array[i]].인);
+					foodarr[12].push(data[array[i]].칼륨);
+					foodarr[13].push(data[array[i]].나트륨);
+					foodarr[14].push(data[array[i]].셀레늄);
+					foodarr[15].push(data[array[i]].베타카로틴);
+					foodarr[16].push(data[array[i]].비타민B1);
+					foodarr[17].push(data[array[i]].비타민B2);
+					foodarr[18].push(data[array[i]].엽산);
+					foodarr[19].push(data[array[i]].비타민C);
+					foodarr[20].push(data[array[i]].비타민D);
+				}
+				/* 				console.log(foodarr[0][3]);
+				 console.log(foodarr[18][3]); */
 			}
-
-			for (int i = 0; i <= badlist.size() - 1; i++) {
-				listB.add(i, badlist.get(i).getfood_cd().toString());
-			}
-			boolean flag = true;
-			for (int i = 0; i <= listA.size() - 1; i++) {
-				for (int j = 0; j <= listB.size() - 1; j++) {
-					if (listA.get(i).equals(listB.get(j))) {	
-						flag = false;
-						break;
-					}
-				}
-				if (flag) {
-					listC.add(listA.get(i));				
-				}
-				flag = true;
-			}
-
-			System.out.println("---------------------");
-			boolean flag2 = true;
-			for (int i = 0; i <= listB.size() - 1; i++) {
-				for (int j = 0; j <= listA.size() - 1; j++) {
-					if (listA.get(j).equals(listB.get(i))) {
-/* 						System.out.println("A의 값은?" + listA.get(j));
-						System.out.println("B의 값은" + listB.get(i)); */
-						flag2 = false;
-						break;
-					}
-				}
-				if (flag2) {
-					listD.add(listB.get(i));				
-				}
-				flag2 = true;
-			}
-			
-/* 			System.out.println("listA?" + listA.toString());
-			System.out.println("listB?" + listB.toString());
-			System.out.println("listC?" + listC.toString());
-			System.out.println("listD?" + listD.toString());
-			System.out.println("goodlist?" + goodlist.toString()); */
-
-			ArrayList<Integer> delgoodList = new ArrayList<>();
-			boolean goodFlag = true;
-			for (int i = 0; i <= goodlist.size() - 1; i++) {
-				for (int j = 0; j <= listC.size() - 1; j++) {
-					if (goodlist.get(i).getfood_cd().toString().equals(listC.get(j))) {
-						goodFlag = false;
-						break;
-					}
-				}
-				if (goodFlag) {
-
-					delgoodList.add(i);
-				}
-				goodFlag = true;
-			}
-/* 			System.out.println("golist테스트" + goodlist.get(0).toString());
-			System.out.println("delgoodList는?" + delgoodList.toString()); */
-
-			ArrayList<Integer> delbadList = new ArrayList<>();
-			boolean badFlag = true;
-			for (int i = 0; i <= badlist.size() - 1; i++) {
-				for (int j = 0; j <= listD.size() - 1; j++) {
-					if (badlist.get(i).getfood_cd().toString().equals(listD.get(j))) {
-						badFlag = false;
-						break;
-					}
-				}
-				if (badFlag) {
-					delbadList.add(i);
-				}
-				badFlag = true;
-			}
-
-/* 			System.out.println("delbadList는?" + delbadList.toString()); */
-
-			for (int i = 0; i < delgoodList.size(); i++) {
-				int delIndex = delgoodList.get(i);
-				goodlist.remove(delIndex - i);
-				System.out.println("삭제된 인덱스" + (delIndex - i));
-			}
-		%>
-
-		<%
-			/* System.out.println("goodlist?" + goodlist.toString()); */
-		%>
+		};
+		xhr.open("GET", "../opalproject/resources/sickjson.json", true);
+		xhr.send();
+		/*20200602 희정 json으로 받아와서 2차원배열에 저장 끝  */
 		
-		<h1>-------------------------------------------</h1>
-		<h1>좋은음식 출력 부분</h1>
-		<%
-			for (GoodfoodVO vo : goodlist) {
-		%>
-		<div>
-		<img src="<%=vo.getfood_img()%>">
-		<br>
-		<%=vo.getfood_name()%>
-		<%
-			}
-		%>
-		</div>
-		<h1>-------------------------------------------</h1>
-		<h1>나쁜음식 출력 부분</h1>
-		<%
-			for (BadfoodVO vo : badlist) {
-		%>
-		<div>		
-		<img src="<%=vo.getfood_img()%>">
-		<br>
-		<%=vo.getfood_name()%>
-		</div>
-		<%
-			}
-		%>
+		/*20200602 희정 그래프 출력부분 시작  */
+		
+		/*20200602 희정 그래프 출력부분 끝 */
+	</script>
 
-
-
-
-	</h3>
-	
-	<h3>질병을 다시 선택하시려면 질병 다시 선택하기 버튼을 눌러주세요.</h3>
-	<button onclick="location.href='index'">질병 다시 선택하기</button>
 
 
 </body>

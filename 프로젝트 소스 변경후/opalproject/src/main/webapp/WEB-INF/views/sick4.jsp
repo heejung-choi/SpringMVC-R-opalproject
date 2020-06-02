@@ -121,8 +121,7 @@ series.columns.template.radarColumn.innerCornerRadius = 0;
 chart.zoomOutButton.disabled = true;
 
 // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", (fill, target) => {
- return chart.colors.getIndex(target.dataItem.index);
+series.columns.template.adapter.add("fill", (fill, target) => { return chart.colors.getIndex(target.dataItem.index);
 });
 
 setInterval(()=>{

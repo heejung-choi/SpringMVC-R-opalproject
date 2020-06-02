@@ -22,7 +22,9 @@
 			if (xhr.status == 200) {
 				var str = xhr.responseText;
 				var data = JSON.parse(str);
-				console.log(data)
+/* 				console.log(data[1])
+				console.log(data[1].food_name)
+				console.log(data[1].에너지) */
 			}
 		};
 		xhr.open("GET", "../opalproject/resources/sickjson.json", true);

@@ -1,8 +1,11 @@
+# div 관련 소스 백업
+
+```
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
-<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList"%>ㄴ
 <%@ page import="model.vo.GoodfoodVO"%>
 <%@ page import="model.vo.BadfoodVO"%>
 <%@ page import="model.vo.SickVO"%>
@@ -184,28 +187,9 @@ height: 100px;
 	
 	<h3>질병을 다시 선택하시려면 질병 다시 선택하기 버튼을 눌러주세요.</h3>
 	<button onclick="location.href='index'">질병 다시 선택하기</button>
-		<form action="/opalproject/sick3" method="POST">
-		<%
-			for (GoodfoodVO vo : goodlist) {
-		%>
-		<input type="hidden" name="food_cd" value="<%=vo.getfood_cd()%>">		
-		<%
-	
-			}
-		
-		System.out.println("굳리"+goodlist.get(0));
-		System.out.println("굳리"+goodlist.get(1));
-		System.out.println("굳리"+goodlist.get(2));
-		System.out.println("굳리"+goodlist.get(3));
-		System.out.println("굳리"+goodlist.get(4));
-		System.out.println("굳리"+goodlist.get(5));
-		System.out.println("굳리"+goodlist.get(6));
-		%>
-		<button> 다음 페이지로 넘기기 </button>
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}">
-	</form>
 
 
 </body>
 </html>
+```
+
