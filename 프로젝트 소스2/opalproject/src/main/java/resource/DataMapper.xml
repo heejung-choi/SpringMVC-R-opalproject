@@ -19,4 +19,8 @@
 		select sick_name, sick_cd from sick where sick_cd=#{sick_cd}
 	</select>
 	
+	<select id="csickData4" parameterType="string"	resultType="model.vo.GoodfoodVO">
+		select food_cd, food_name from goodfood where food_cd=#{food_cd}
+	</select>
+	
 </mapper>

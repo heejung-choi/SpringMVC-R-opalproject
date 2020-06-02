@@ -74,6 +74,27 @@ public class SickfoodDAO {
 	}
 	
 	
+	public List<GoodfoodVO> csickData4(String[] food_cd) {
+		List<GoodfoodVO> goodlist = new ArrayList<GoodfoodVO>();
+		List<GoodfoodVO> tempgoodlist = new ArrayList<GoodfoodVO>();
+		String statment = "resource.DataMapper.csickData1";
+		
+
+		
+	for(int i = 0 ; i<food_cd.length;i++) {
+		if(session.selectList(statment,food_cd[i]).size()>=2) {
+			tempgoodlist = session.selectList(statment,food_cd[i]);
+			for(GoodfoodVO vo : tempgoodlist)
+				goodlist.add(vo);
+		}
+		else {
+			goodlist.add((GoodfoodVO) session.selectOne(statment,food_cd[i]));
+		}
+	}
+		return goodlist;
+	}
+	
+	
 	
 
 

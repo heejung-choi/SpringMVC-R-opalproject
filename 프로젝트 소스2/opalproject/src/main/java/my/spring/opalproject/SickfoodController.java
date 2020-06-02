@@ -67,8 +67,17 @@ public class SickfoodController {
 	}
 	@RequestMapping(value = "/sick3")
 	public ModelAndView sick3(String[] food_cd) {
+
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("food_cd", food_cd);
+		List<GoodfoodVO> foodname = dao.csickData4(food_cd);
+		
+		for (int i = 0; i < food_cd.length; i++)
+			System.out.println("DAO에서 food_cd : " + food_cd[i]);
+		
+		System.out.println("foodname 컨트롤러"+foodname);
+		mav.addObject("food_cd", food_cd);	
+		mav.addObject("foodname", foodname);
 		mav.setViewName("sick3");
 		return mav;
 	}
