@@ -1,0 +1,106 @@
+
+h2 {
+	margin-top : 100px;
+	text-align : center;
+}
+
+h3 {
+	margin-bottom : 100px;
+	text-align : center;
+}
+
+h4 {
+	margin-bottom : 50px;
+	text-align : center;
+}
+
+.badfood_h4 {
+	margin-bottom : 50px;
+	text-align : center;
+	margin-right : 100px;
+}
+
+h5 {
+	font-size : 20px;
+	margin-bottom : 15px;
+}
+
+.div_1 {
+	height:250px;
+	text-align:center;
+	margin : 20px auto;
+}
+
+.div_2 {
+	margin-top : 100px;
+	height:280px;
+	text-align:center;
+	margin-left : 100px;
+}
+
+
+.good_food{
+	width : 200px;
+}
+
+.span{
+	position : relative;
+	top: 110px;
+	left: -120px;
+	right : 50px;
+	font-size:20px;
+	
+}
+
+.span_1{
+	position : relative;
+	top: 110px;
+	left: -150px;
+	right : 30px;
+	font-size:20px;
+	
+}
+
+.bad_food{
+	width : 200px;
+	height:150px;
+}
+
+.foodwrapper{
+	width:100%
+}
+
+.foodwrapper_1{
+	text-align:center;
+}
+
+.check_sumit {
+	background-color: #86B404;
+	border: none;
+	color: white;
+	padding: 10px 30px;
+	width: 400px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin: auto;
+	text-align: center;
+	font-family: 'Do Hyeon', san-serif;
+	font-size: 30px;
+}
+
+.check_sumit {
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+
+  transition-duration: 0.4s;
+
+}
+
+.check_sumit:hover, .check_sumit:focus {
+	background-color: #312f4a;
+	color: #fff;
+}
+
+.footer{
+	margin-top:100px;
+}

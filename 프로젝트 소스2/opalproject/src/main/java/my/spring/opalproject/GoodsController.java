@@ -1,50 +1,103 @@
 package my.spring.opalproject;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.dao.GoodsDAO;
 import model.vo.GoodsVO;
-import model.vo.MainVO;
+
 
 @Controller
 public class GoodsController {
-
 	@Autowired
 	GoodsDAO dao;
-
-	@RequestMapping(value = "/goods", method = RequestMethod.POST)
-	protected ModelAndView post(GoodsVO vo, String action) {
-		System.out.println("¾Æ¾Æ¾Æ¾Æ¾Æ¾Æ¾Æ¾Æ¾Æ"+vo.getProduct_name());
+	
+	//listall  GET ìƒí’ˆì „ì²´ë³´ê¸°
+	@RequestMapping(value="/goods", method=RequestMethod.GET)
+	public ModelAndView goodsList() {
 		ModelAndView mav = new ModelAndView();
-
-		if (action.equals("insert")) {
-			boolean result = dao.insert(vo);
-			if (result) {
-				mav.addObject("msg", vo.getPart_name() + "´ÔÀÇ ±ÛÀÌ ¼º°øÀûÀ¸·Î ÀÔ·ÂµÇ¾ú½À´Ï´Ù.");
-			} else {
-				mav.addObject("msg", vo.getPart_name() + "´ÔÀÇ ±ÛÀÌ ÀÔ·ÂµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
-			}
-		}
-		mav.addObject("list", dao.listAll());
+		List<GoodsVO> list = dao.listAll();
+		//System.out.println("ë¦¬ìŠ¤íŠ¸ ì•ˆì˜¤ëƒ¥"+list);
+		mav.addObject("list",list);
 		mav.setViewName("goods");
 		return mav;
 	}
-
-	@RequestMapping(value = { "/goodsInsert" }, method = RequestMethod.GET)
-	public String one() {
-		return "goodsInsertForm";
+	//listone GET ìƒí’ˆìƒì„¸ë³´ê¸°
+	@RequestMapping(value="/goods/{action}", method=RequestMethod.GET)
+	public ModelAndView goodsGET(@PathVariable String action, GoodsVO vo) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<GoodsVO> list = dao.listAll();
+		
+		if(action!=null) {
+			if(action.equals("read")) {
+				vo = dao.listOne(vo.getProduct_cd());
+				list = dao.listAll();         
+				mav.addObject("listOne",vo);
+				mav.setViewName("details");
+			}else {
+				vo = dao.listOne(vo.getProduct_cd());
+				list = dao.listAll();
+				mav.addObject("listOne",vo);
+				mav.setViewName("goods");
+			}
+		}
+		mav.addObject("list",list);
+		return mav;
 	}
+	
 
+	
+	
+	
+	
+	
+	/*
+	 * @RequestMapping(value = "/goods", method = RequestMethod.POST) protected
+	 * ModelAndView post(GoodsVO vo, String action) {
+	 * System.out.println("Controller post ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.");
+	 * System.out.println("action ï¿½ï¿½"+action);
+	 * System.out.println("ï¿½Æ¾Æ¾Æ¾Æ¾Æ¾Æ¾Æ¾Æ¾ï¿½"+vo.getProduct_name()); ModelAndView mav = new
+	 * ModelAndView();
+	 * 
+	 * if (action.equals("insert")) {
+	 * System.out.println("ifï¿½ï¿½ equal==insert ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½."); boolean result =
+	 * dao.insert(vo); if (result) { System.out.println("ifï¿½È¿ï¿½ if ï¿½ï¿½ï¿½ï¿½");
+	 * mav.addObject("msg", vo.getPart_name() + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ÂµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+	 * } else { System.out.println("ifï¿½È¿ï¿½ if ï¿½ï¿½ï¿½ï¿½"); mav.addObject("msg",
+	 * vo.getPart_name() + "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Âµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½."); } }
+	 * System.out.println("ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½."); mav.addObject("list", dao.listAll());
+	 * mav.setViewName("goods"); return mav; }
+	 * 
+	 * @RequestMapping(value = { "/goodsInsert" }, method = RequestMethod.GET)
+	 * public String one() { return "goodsInsertForm"; }
+	 */
+	
+	/*
+	 * //ìƒí’ˆìƒì„¸ë³´ê¸°
+	 * 
+	 * @RequestMapping("/detail/{product_cd}") public ModelAndView
+	 * detail(@PathVariable("product_cd") int product_cd, ModelAndView mav) {
+	 * mav.setViewName("details"); mav.addObject("vo",
+	 * productService.detailProduct(product_cd)); return mav;
+	 * 
+	 * }
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	 * @RequestMapping(value = "/goods", method = RequestMethod.GET) public
 	 * ModelAndView doGet(@RequestParam(value = "action", required = false) String
@@ -60,20 +113,20 @@ public class GoodsController {
 	 * ModelAndView mav = new ModelAndView(); List<GoodsVO> list; int count = 0;
 	 * String linkStr = ""; if (action == null) { list = dao.listAll(pgNum);
 	 * session.setAttribute("pgNum", pgNum); System.out.println("pgNum : " + pgNum);
-	 * mav.addObject("msg", "³ó»ê¹° ÆÇ¸Å °Ô½ÃÆÇ"); if (list != null && list.size() != 0) {
+	 * mav.addObject("msg", "ï¿½ï¿½ê¹° ï¿½Ç¸ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½"); if (list != null && list.size() != 0) {
 	 * mav.addObject("list", list); } count = dao.getCount(); } else if
 	 * (action.equals("sort")) { list = dao.listSort(key, pgNum);
-	 * mav.addObject("msg", "»óÇ° ¸®½ºÆ®(" + key + "Á¤·Ä)"); if (list != null &&
+	 * mav.addObject("msg", "ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½Æ®(" + key + "ï¿½ï¿½ï¿½ï¿½)"); if (list != null &&
 	 * list.size() != 0) { mav.addObject("list", list); } count = dao.getCount();
 	 * linkStr = "&action=sort&key=" + key; } else if (action.equals("listone")) {
 	 * GoodsVO vo = dao.listOne(post_id); if (vo != null) {
-	 * session.setAttribute("vo", vo); mav.addObject("msg", "»óÇ° »ó¼¼¼³¸í");
+	 * session.setAttribute("vo", vo); mav.addObject("msg", "ï¿½ï¿½Ç° ï¿½ó¼¼¼ï¿½ï¿½ï¿½");
 	 * mav.addObject("vo", vo); } } else if (action.equals("search")) { list =
 	 * dao.search(key, searchType, pgNum); if (list != null && list.size() != 0) {
-	 * mav.addObject("msg", key + "À»(¸¦) Æ÷ÇÔÇÏ´Â ±Û ¸®½ºÆ®"); mav.addObject("list", list);
+	 * mav.addObject("msg", key + "ï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®"); mav.addObject("list", list);
 	 * count = dao.getCount(key, searchType); linkStr = "&searchType=" + searchType
 	 * + "&key=" + key + "&action=search"; } else { mav.addObject("snull", key +
-	 * "À» Æ÷ÇÔÇÏ´Â °Ë»ö±ÛÀÌ ¾ø½À´Ï´Ù."); } } else if (action.equals("delete")) {
+	 * "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."); } } else if (action.equals("delete")) {
 	 * dao.delete(post_id); System.out.println("action : " + action);
 	 * mav.setViewName("redirect:http://localhost:8000/opalproject/goods?pgNum=" +
 	 * session.getAttribute("pgNum")); return mav; }

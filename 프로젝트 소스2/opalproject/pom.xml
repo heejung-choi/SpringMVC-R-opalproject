@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>my.spring</groupId>
 	<artifactId>opalproject</artifactId>
@@ -202,6 +202,26 @@
     <version>5.3.1.RELEASE</version>
 </dependency>
 <!-- 2020/5/18 김동규 ojdbc라이브러리 추가끝.-->
+
+<!-- 2020/6/01 김동규 json, gson 라이브러리 추가 -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.8.5</version>
+</dependency>
+
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20160810</version>
+</dependency>
+
+<dependency>
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-databind</artifactId> <!-- 응답을 xml로 하겠어, json으로 하겠어 응답을 도와주는 라이브러리 -->
+         <version>2.9.9</version>
+      </dependency>
+<!-- 2020/6/01 김동규 json, gson 라이브러리 추가 끝 -->
 	</dependencies>
     <build>
         <plugins>

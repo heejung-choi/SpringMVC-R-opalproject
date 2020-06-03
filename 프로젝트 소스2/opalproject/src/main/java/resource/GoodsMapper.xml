@@ -2,49 +2,42 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="resource.GoodsMapper">
+  <mapper namespace="resource.goodsMapper">
   
- <!--  PRODUCT_CD, PRODUCT_NAME, PRODUCT_CONTENT,PRODUCT_PRICE,FARM_CD,PRODUCT_SU -->
-    	<insert id="insertGoods" parameterType="model.vo.GoodsVO">
-  		insert into product (product_cd, product_name, product_content, product_price, farm_cd, product_su)
-  		 values (product_seq.nextval, #{product_name}, #{product_content}, #{product_price}, 1, #{product_su})
-  	</insert>
-  
-  <select id="listAllGoods"  resultType="model.vo.GoodsVO">
-    	select product_cd, product_name, product_content, product_price, farm_cd, product_su from product 
- 	</select>
+ 
+   
+  	<!-- 상품 리스트 올 -->
+  	<select id="selectGoods" resultType="model.vo.GoodsVO">
+  	select product_cd, product_name, product_content, product_price, product_su, product_url 
+    	from product
+  	</select>
   	
-  
-  <!-- 	<insert id="insertGoods" parameterType="model.vo.GoodsVO">
-  		insert into product values
-  		(product_seq.nextval,#{PART_ID}
-  		,#{PRODUCT_NAME},#{PRODUCT_CONTENT},#{PRODUCT_PRICE},#{PRODUCT_SU})
-  	</insert>
+	<!-- 상품 상세보기 -->
+	<select id="selectone" resultType="model.vo.GoodsVO">
+		select product_cd, product_name, product_content, product_price, product_su, product_url 
+    	from product where product_cd=#{product_cd}
+	</select>
+
+
+
+
   	
-  	<insert id="insertGoods"  parameterType="model.vo.GoodsVO">
+  	<!-- <insert id="insertGoods"  parameterType="model.vo.GoodsVO">
   		<selectKey resultType="int" keyProperty="id" order="BEFORE">
   			select opal_seq.nextval from dual
   		</selectKey>
-  		insert into product (PRODUCT_NAME, PRODUCT_CONTENT, PRODUCT_PRICE, PRODUCT_SU) values (#{PRODUCT_NAME}, #{PRODUCT_CONTENT}, #{PRODUCT_PRICE}, #{meetingDate}))
+  		insert into product (product_cd, product_writer, product_name, product_content, product_price, product_su, product_url) values (#{PRODUCT_CD}, #{PRODUCT_WRITER}, #{PRODUCT_NAME}, #{PRODUCT_CONTENT}, #{PRODUCT_PRICE}, #{PRODUCT_SU}, #{PRODUCT_URL}))
     </insert>
+  	
+  	<update id="updateGoods" parameterType="model.vo.GoodsVO">
+		update product set
+		product_name = #{product_name}, product_content = #{product_content}, product_price = #{product_price}, product_su = #{product_su}, product_url = #{product_url}
+		where product_cd = #{product_cd}
+	</update>
+  	
   	 -->
   	
-  	
-  	
-  	
-<!-- <select id="listAllGoods" parameterType="java.util.HashMap" resultType="model.vo.GoodsVO">
-  		select post_id,mem_userid,mem_username,post_title,post_content,post_writedate,post_hit,post_location,post_payment,post_phone,post_review_count from 
-		(select post_id,mem_userid,mem_username,post_title,post_content,post_writedate,post_hit,post_location,post_payment
-		,post_phone,post_review_count,rownum rnum from 
-		(select post_id,jobad.mem_userid mem_userid,mem_username,post_title,post_content,to_char(post_writedate,'yyyy"년" mm"월" dd"일" hh24"시":mi"분"') post_writedate,post_hit,post_location,post_payment 
-		,post_phone,post_review_count from jobad,meminfo where jobad.mem_userid=meminfo.mem_userid
-		 order by post_writedate desc)) 
-		where rnum between #{getWritingStart} and #{getWritingEnd}
-  	</select> -->
-  	
-  	
-  	
-  	
-  	
+
+ 
   	
   </mapper>

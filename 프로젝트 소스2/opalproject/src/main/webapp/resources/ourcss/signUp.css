@@ -3,12 +3,13 @@
 
 #entrance {
    height: 600px;
+   font-family:'Do Hyeon', san-serif;
 }
 
 h2 {
-   margin : 50px auto;
+   margin-top : 150px;
    text-align : center;
-    }
+}
 
 .button{
    width : 100%;

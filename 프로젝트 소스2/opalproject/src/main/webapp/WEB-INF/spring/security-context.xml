@@ -42,13 +42,13 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 <security:form-login 
 username-parameter="cust_id" 
 password-parameter="cust_pw" 
-login-processing-url="/main" 
+login-processing-url="/index" 
 login-page="/signin" 
 authentication-success-handler-ref="customLoginSuccess"
 authentication-failure-url="/login?fail=true"/>	
 <security:logout
  logout-url="/logout" 
- logout-success-url="/"/>
+ logout-success-url="/index"/>
 <!-- 200515 김동규 로그아웃 처리와 LogoutSuccessHandler -->
 <!-- 	<security:logout logout-url="/customLogout" invalidate-session="true"/>
  -->	<!-- 200515 김동규 로그아웃 처리와 LogoutSuccessHandler 끝.-->
@@ -59,11 +59,11 @@ authentication-failure-url="/login?fail=true"/>
 </security:http> 
 
 <security:authentication-manager>
-	<security:authentication-provider user-service-ref="userService" >
-	</security:authentication-provider>
+	<security:authentication-provider ref="userAuthProvider"/>
+	<security:authentication-provider user-service-ref="userService"/>
 </security:authentication-manager>
  <bean id="userService" class="service.CustomCustomerDetailsService"/>
- 
+<bean id="userAuthProvider" class="service.CustomAuthenticationProvider"/>
 
 <!-- <bean id="dataSource" 
 class="org.springframework.jdbc.datasource.DriverManagerDataSource">

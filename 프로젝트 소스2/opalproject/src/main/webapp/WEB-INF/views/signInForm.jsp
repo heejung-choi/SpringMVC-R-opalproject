@@ -1,11 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<title>로그인</title>
+<html class="no-js" lang="">
 <head>
-
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPAL :: LOGIN</title>
 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
     <font color="red">
         <p>Your login attempt was not successful due to <br/>
@@ -13,132 +17,126 @@
         <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
     </font>
 </c:if>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link rel="stylesheet" href="resources/journal/bootstrap.css"
-   media="screen">
-<link rel="stylesheet" href="resources/_assets/css/custom.min.css">
-<link rel="stylesheet" href="resources/ourcss/main.css">
-<link rel="stylesheet" href="resources/ourcss/customLogin.css">
-
-
+<link rel="icon" type="image/png" sizes="32x32"
+	href="resources/images/Opal.png">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/flexslider.css">
+<link rel="stylesheet" href="resources/css/jquery.fancybox.css">
+<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="resources/css/responsive.css">
+<link rel="stylesheet" href="resources/css/animate.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<link href="resources/ourcss/customLogin.css" rel="stylesheet" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#nav ul#sub-menu").hide();
+		$("#nav ul#main-menu li").click(function() {
+			$("ul", this).slideToggle("fast");
+		});
+	});
+</script>
 </head>
-
 <body>
-
-   <header>
-      <div class="header_wrap">
-         <div class="logo">
-            <a href="/opalproject/main">
-               <h1>
-                  <img src="resources/images/Opal.png" width=150 alt
-                     class="default_logo">
-               </h1>
-            </a>
-         </div>
-
-         <div class="top_nav">
-            <div class="top_ul">
-               <div class="bs-component1">
-                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                     <button class="navbar-toggler" type="button"
-                        data-toggle="collapse" data-target="#navbarColor03"
-                        aria-controls="navbarColor03" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                     </button>
-
-                     <div class="collapse navbar-collapse" id="navbarColor03">
-                        <ul class="navbar-nav mr-auto">
-                           <li class="nav-item"><a class="nav-link"
-                              style="font-size: 12px;" href="/opalproject/signin">로그인</a></li>
-                           <li class="nav-item"><a class="nav-link"
-                              style="font-size: 12px;" href="/opalproject/signup">회원가입</a></li>
-                           <li class="nav-item"><a class="nav-link"
-                              style="font-size: 12px;" href="#">고객센터</a></li>
-                        </ul>
-                     </div>
-                  </nav>
-               </div>
-            </div>
-         </div>
-   </header>
-   <!--header 끝-->
-
-   <div class="bs-component2">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-         <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarColor03" aria-controls="navbarColor03"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-         </button>
-         <!--건드리지 마세요.-->
-
-         <div class="collapse navbar-collapse" id="navbarColor03"
-            style="height: 100px">
-            <div class="navbar-nav2">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/about">소개</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/datamain">질병DATA</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/goods">농산물구매</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/markets">농가별구매</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="#">레시피</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="#">식단추천</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="#">정기결제</a></li>
-                         <li class="nav-item2"><a class="nav-link" style="padding-right: 4rem;" href="/opalproject/goodsInsertForm">상품등록</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-   </div>
-   <hr>
-   <br>
-   <!--main navbar 끝-->
-
+	<section class="banner" role="banner">
+		<header id="header">
+			<div id="nav" class="header-content clearfix">
+				<a class="logo" href="/opalproject/index"> <img
+					src="resources/images/Opal.png" width="100" alt=""></a>
+				<nav class="navigation" role="navigation">
+					<ul id="main-menu" class="primary-nav">
+						<li><a href="/opalproject/about">오팔이란</a></li>
+						<li><a href="/opalproject/team">팀소개</a></li>
+						<!-- 로그인중이 아닐 때에만 Login 버튼이 보임  -> taglib ( security/tags ) 때문에 가능 -->
+						<sec:authorize access="isAnonymous()">
+							<li><a href='${pageContext.request.contextPath}/signin'>로그인</a></li>
+							<li><a href="/opalproject/signup">회원가입</a></li>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<li><a href="#">회원정보</a>
+								<ul id="sub-menu">
+									<li><a href="#">내 질병 분석 보기</a></li>
+									<li><a href="#">회원정보 수정</a></li>
+								</ul>
+							<li><form action="${pageContext.request.contextPath}/logout" method="POST">
+									<input id="logoutBtn" class="logout_button" type="submit" value="Logout" /> 
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								</form></li>
+						</sec:authorize>
+					</ul>
+				</nav>
+				<a href="#" class="nav-toggle">Menu<span></span></a>
+			</div>
+			<!-- header content -->
+		</header>
+		<!-- header -->
+		<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="banner-text text-center">
+					<p>movie here</p>
+				</div>
+				<!-- banner text -->
+			</div>
+		</div>
+	</section>
+	<!-- banner -->
+	
+	
    <section id="customLogin">
       <div class="login_card">
-         <div id="card_feagure" class="card border-success mb-3" style="max-width: 40rem;">
+         <div id="card_feagure">
             <div class="card-header">
-               <img src="resources/images/Opal.png" width=200 alt
-                     class="default_logo">
+               <img src="resources/images/Opal.png" width=200 alt class="default_logo">
             </div>
             <div class="card-body">
-            
-				<form method='post' action="/opalproject/main">
+				<form method='post' action="/opalproject/index">
 					<div><input class="input" type="text" name="cust_id" placeholder="아이디" autocomplete="off"></div>
 					<div><input class="input" type="password" name="cust_pw" placeholder="비밀번호" autocomplete="off"></div>
 					<div><button type="submit" class="login_button">로그인</button></div>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 
-					<div class="en">
+			<div class="en">
                <a href="/opalproject/signup">회원가입</a> 
                <span> | </span> 
                <a href="/opalproject/entrance">비밀번호/아이디찾기</a>
-               </div>
             </div>
+           </div>
          </div>
       </div>
    </section>
-
-   <footer>
-      <h3>홈페이지 정보(바닥 글)</h3>
-   </footer>
-   <!--footer 끝-->
-
+ 	<footer class="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="footer-col col-md-4"></div>
+					<div class="footer-col col-md-4">
+						<img src="resources/images/Opal.png" width="150" alt="">
+						<h5>with Health</h5>
+					</div>
+					<div class="footer-col col-md-4"></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer -->
 </body>
-
-
-<script src="resources/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="resources/_vendor/popper.js/dist/umd/popper.min.js"></script>
-<script src="resources/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="resources/_assets/js/custom.js"></script>
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="resources/js/jquery.min.js"><\/script>')
+	</script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/jquery.flexslider-min.js"></script>
+	<script src="resources/js/jquery.fancybox.pack.js"></script>
+	<script src="resources/js/jquery.waypoints.min.js"></script>
+	<script src="resources/js/retina.min.js"></script>
+	<script src="resources/js/modernizr.js"></script>
+	<script src="resources/js/main.js"></script>
 </html>

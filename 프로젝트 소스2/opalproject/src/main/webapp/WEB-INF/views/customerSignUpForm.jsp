@@ -1,168 +1,308 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="">
 <head>
-<title>회원가입</title>
-
+<meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link rel="stylesheet" href="resources/journal/bootstrap.css"
-   media="screen">
-<link rel="stylesheet" href="resources/_assets/css/custom.min.css">
-<link rel="stylesheet" href="resources/ourcss/main.css">
-<link rel="stylesheet" href="resources/ourcss/entranceForm.css">
-
-<!-- jquery를 먼저 로딩해주지 않으면 이메일 셀렉트 기능이 정상적으로 동작하지 않습니다. -->
-<script type="text/javascript" src="resources/jquery-3.5.1.min.js"></script>
+<title>OPAL :: 회원가입</title>
+<link rel="icon" type="image/png" sizes="32x32"
+	href="resources/images/Opal.png">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/flexslider.css">
+<link rel="stylesheet" href="resources/css/jquery.fancybox.css">
+<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="resources/ourcss/signUpForm.css">
+<link rel="stylesheet" href="resources/css/responsive.css">
+<link rel="stylesheet" href="resources/css/animate.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+	rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#nav ul#sub-menu").hide();
+		$("#nav ul#main-menu li").click(function() {
+			$("ul", this).slideToggle("fast");
+		});
+	});
+</script>
 </head>
 <body>
-   <header>
-      <div class="header_wrap">
-         <div class="logo">
-            <a href="/opalproject/main">
-               <h1>
-                  <img src="resources/images/Opal.png" width=150 alt
-                     class="default_logo">
-               </h1>
-            </a>
-         </div>
+ 
+	<section class="banner" role="banner">
+		<header id="header">
+			<div id="nav" class="header-content clearfix">
+				<a class="logo" href="/opalproject/index"> <img
+					src="resources/images/Opal.png" width="100" alt=""></a>
+				<nav class="navigation" role="navigation">
+					<ul id="main-menu" class="primary-nav">
+						<li><a href="/opalproject/about">오팔이란</a></li>
+						<li><a href="/opalproject/team">팀소개</a></li>
+						<!-- 로그인중이 아닐 때에만 Login 버튼이 보임  -> taglib ( security/tags ) 때문에 가능 -->
+						<sec:authorize access="isAnonymous()">
+							<li><a href='${pageContext.request.contextPath}/signin'>로그인</a></li>
+							<li><a href="/opalproject/signup">회원가입</a></li>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<li><a href="#">회원정보</a>
+								<ul id="sub-menu">
+									<li><a href="#">내 질병 분석 보기</a></li>
+									<li><a href="#">회원정보 수정</a></li>
+								</ul>
+							<li><form action="${pageContext.request.contextPath}/logout" method="POST">
+									<input id="logoutBtn" class="logout_button" type="submit" value="Logout" /> 
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								</form></li>
+						</sec:authorize>
+					</ul>
+				</nav>
+				<a href="#" class="nav-toggle">Menu<span></span></a>
+			</div>
+			<!-- header content -->
+		</header>
+		<!-- header -->
+		<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="banner-text text-center">
+					<p>movie here</p>
+				</div>
+				<!-- banner text -->
+			</div>
+		</div>
+	</section>
+	<!-- banner -->
 
-         <div class="top_nav">
-            <div class="top_ul">
-               <div class="bs-component1">
-                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                     <button class="navbar-toggler" type="button"
-                        data-toggle="collapse" data-target="#navbarColor03"
-                        aria-controls="navbarColor03" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                     </button>
+               
+<script>
+	window.onload = function(){
+		var cust_name_dom = document.getElementById("cust_name");
+		var cust_id_dom = document.getElementById("cust_id");
+		var idcheck_dom = document.getElementById("idcheck");
+		var submit_dom = document.getElementById("submit");
+		if(cust_id_dom!=undefined ){
+			cust_id_dom.onkeyup = function(){
+				$.ajax({
+					url : "/opalproject/getdbdata",
+					dataType : "json",
+					data : {"cust_id":cust_id_dom.value},
+					beforeSend : function(){
+						idcheck_dom.innerHTML ="";
+					},
+					success : function(data){
+						if(cust_id_dom.value.length>5){
+							if(data.length>0){
+								idcheck_dom.innerHTML ="해당 아이디가 존재합니다.";
+								idcheck_dom.style.color="red";
+								submit_dom.disabled=true;
+								console.log(data);
+							}
+							else{
+								idcheck_dom.innerHTML ="사용 가능한 아이디입니다.";
+								idcheck_dom.style.color="blue";
+								submit_dom.disabled=false;
+							}
+						}
+					},
+					error : function(jqXHR, textStatus, errorThrown){
+						console.log("jqXHR.status : " + jqXHR.status);
+						console.log("jqXHR.statusText : " + jqXHR.statusText);
+						console.log("jqXHR.responseText : " + jqXHR.responseText);
+						console.log("jqXHR.readyState : " + jqXHR.readyState);
+						console.log("textStatus : " + textStatus);
+						console.log("errorThrown : " + errorThrown);
+					}
+				});
+		}
+		}
+		else{
+			console.log("editMyInfo.jsp : cust_id_dom 객체를 찾을 수 없습니다.");
+		}	
+		
+		submit_dom.onclick = function(){
+			if(cust_id_dom.value.length<6){
+				alert("아이디는 6자 이상입니다.")
+				event.preventDefault();
+			}
+		}
+		
+		var cust_pw_dom = document.getElementById("cust_pw");
+		var cust_pwch_dom = document.getElementById("cust_pwch");
+		var h5_pwch_dom = document.getElementById("pwch");
+		
+		cust_pwch_dom.onchange = function(){
+			h5_pwch_dom.innerHTML="";
+			
+				if(cust_pw_dom.value != cust_pwch_dom.value){
+					h5_pwch_dom.innerHTML="비밀번호가 일치하지 않습니다.";
+					h5_pwch_dom.style.color="red";
+					submit_dom.disabled=true;
+				}
+				else{
+					h5_pwch_dom.innerHTML="비밀번호가 일치합니다.";
+					h5_pwch_dom.style.color="blue";
+					submit_dom.disabled=false;
+				}
+		}
+		cust_pw_dom.onchange = function(){
+			if(cust_pw_dom.value.length==0){
+				h5_pwch_dom.innerHTML="";
+			}
+			
+			if(cust_pw_dom.value != cust_pwch_dom.value){
+				h5_pwch_dom.innerHTML="비밀번호가 일치하지 않습니다.";
+				h5_pwch_dom.style.color="red";
+				submit_dom.disabled=true;
+			}
+			else{
+				h5_pwch_dom.innerHTML="비밀번호가 일치합니다.";
+				h5_pwch_dom.style.color="blue";
+				submit_dom.disabled=false;
+			}
+		}
+		
+		var h5_namecheck_dom = document.getElementById("namecheck");
+		var cust_name_pattern = /^[가-힣]{2,6}$/;
+		//var cust_name_pattern = /[\uAC00-\uD7A3]{1,6}[^a-z]{0,}[^A-Z]{0,}]/;
+		
+		cust_name_dom.onkeyup = function(){
+			if(cust_name_pattern.test(cust_name_dom.value)==true){
+				h5_namecheck_dom.innerHTML = "올바른 이름입니다 ㅋㅋ";
+				submit_dom.disabled=false;
+			}
+			else{
+				h5_namecheck_dom.innerHTML = "이름을 다시 입력하세요.";
+				submit_dom.disabled=true;
+			}
+			if(cust_name_dom.value==0){
+				h5_namecheck_dom.innerHTML = "";
+				submit_dom.disabled=false;
+			}
+		}
+		
+		
+		//이메일 체크
+		var email_dom1 = document.getElementById("emailId");
+		var email_dom2 = document.getElementById("textEmail");
+		var email_dom3 = document.getElementById("select");
+		var emailcheck = document.getElementById("emailcheck");
+		var emailCheck_pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+	 	email_dom1.onchange = function(){
+				if(emailCheck_pattern.test(email_dom1.value+"@"+email_dom2.value))
+					emailcheck.innerHTML = "올바른 이메일입니다.";
+				else
+					emailcheck.innerHTML = "올바른 이메일 형식이 아닙니다.";
+	 	}
+	 	email_dom2.onchange = function(){
+			if(emailCheck_pattern.test(email_dom1.value+"@"+email_dom2.value))
+				emailcheck.innerHTML = "올바른 이메일입니다.";
+			else
+				emailcheck.innerHTML = "올바른 이메일 형식이 아닙니다.";
+ 	}
+	 	email_dom3.onchange = function(){
+			if(emailCheck_pattern.test(email_dom1.value+"@"+email_dom2.value))
+				emailcheck.innerHTML = "올바른 이메일입니다.";
+			else
+				emailcheck.innerHTML = "올바른 이메일 형식이 아닙니다.";
+ 	}
 
-                     <div class="collapse navbar-collapse" id="navbarColor03">
-                        <ul class="navbar-nav mr-auto">
-                           <li class="nav-item"><a class="nav-link"
-										style="font-size: 12px;" href="/opalproject/signin">로그인</a></li>
-									<li class="nav-item"><a class="nav-link"
-										style="font-size: 12px;" href="/opalproject/signup">회원가입</a></li>
-                           <li class="nav-item"><a class="nav-link"
-                              style="font-size: 12px;" href="#">고객센터</a></li>
-                        </ul>
-                     </div>
-                  </nav>
-               </div>
-            </div>
-         </div>
-   </header>
-   <!--header 끝-->
-
-   <div class="bs-component2">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-         <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarColor03" aria-controls="navbarColor03"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-         </button>
-         <!--건드리지 마세요.-->
-
-         <div class="collapse navbar-collapse" id="navbarColor03"
-            style="height: 100px">
-            <div class="navbar-nav2">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/about">소개</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/datamain">질병DATA</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/goods">농산물구매</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="/opalproject/markets">농가별구매</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="#">레시피</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="#">식단추천</a></li>
-                  <li class="nav-item2"><a class="nav-link"
-                     style="padding-right: 4rem;" href="#">정기결제</a></li>
-                         <li class="nav-item2"><a class="nav-link" style="padding-right: 4rem;" href="/opalproject/goodsInsertForm">상품등록</a></li>
-               </ul>
-            </div>
-         </div>
-      </nav>
-   </div>
-   <hr>
-   <br>
-   <!--main navbar 끝-->
-
+		//생년월일 체크
+		var cust_birthday_date_dom = document.getElementById("cust_birthday_date");
+		var h5_birthdaycheck = document.getElementById("birthdaycheck");
+		var birthdayCheck_pattern = /^(19|20)[0-9]{2}(0[1-9]|1[1-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+		
+		cust_birthday_date_dom.onchange = function(){
+			if(birthdayCheck_pattern.test(cust_birthday_date_dom.value)==true){
+				h5_birthdaycheck.innerHTML = "생일축축";
+			}
+			else{
+				h5_birthdaycheck.innerHTML = "생일아님";
+			}
+			
+		}
+	}
+</script>
 <%String member = (String)request.getAttribute("member"); %>
    <section id="entrance">
       <h2>회원가입</h2>
       <form method="post" action="/opalproject/csignex" >
          <table>
             <tbody>
-             	<tr>
-             	<td class="td_name">회원유형</td>
+                <tr>
+                <td class="td_name">회원유형</td>
                   <td class="td_text">
-		 	<label for="radio"><input id= "radio" type="radio" name="member" value="<%=member%>" checked disabled>고객</label>
-		 	<label for="radio"><input id= "radio" type="radio" name="member" disabled>파트너</label>
+          <label for="radio"><input id= "radio" type="radio" name="member" value="<%=member%>" checked disabled>고객</label>
+          <label for="radio"><input id= "radio" type="radio" name="member" disabled>파트너</label>
                   </td>
                </tr>
-             	</tr>
+                </tr>
                <tr>
                   <td class="td_name">이름</td>
-                  <td class="td_text"><input
-                     style="width: 200px; text-align: left;" type="text" name="cust_name" autocomplete=”off” required></td>
+                  <td class="td_text">
+                  		<input id="cust_name" style="width: 200px; text-align: left;" type="text" name="cust_name" autocomplete=”off” maxlength="6" required autofocus><h5 id="namecheck"></h5>
+                  </td>
                </tr>
+
                <tr>
                   <td class="td_name">아이디</td>
                   <td class="td_text"><input
-                     style="width: 200px; text-align: left;" type="text" name="cust_id" autocomplete=”off” required>&nbsp;&nbsp;<input
-                     type="button" class="btn btn-outline-secondary" value="중복 확인하기"></td>
+                     style="width: 200px; text-align: left;" type="text" id="cust_id" name="cust_id" autocomplete=”off”  maxlength="10" required>&nbsp;&nbsp;
+                     <h5 id="idcheck"></h5></td>
                </tr>
                <tr>
                   <td class="td_name">비밀번호</td>
-                  <td class="td_text"><input
-                     style="width: 200px; text-align: left;" type="password" name="cust_pw" autocomplete=”off” min=6 max=11 required></td>
+                  <td class="td_text">
+                  <input id="cust_pw" style="width: 200px; text-align: left;" type="password" name="cust_pw" autocomplete=”off” min=6 max=11 required></td>
                </tr>
                <tr>
                   <td class="td_name">비밀번호 확인</td>
-                  <td class="td_text"><input
-                     style="width: 200px; text-align: left;" type="password" autocomplete=”off” min=6 max=11 required> <span>&nbsp;&nbsp;*비밀번호
-                        확인을 위해서 한 번만 더 입력해주세요.</span></td>
+                  <td class="td_text">
+                  <input id="cust_pwch" style="width: 200px; text-align: left;" type="password" autocomplete=”off” min=6 max=11 required> <span>&nbsp;&nbsp;*비밀번호
+                        확인을 위해서 한 번만 더 입력해주세요.</span><h5 id="pwch"></h5></td>
+                       
                </tr>
                <script>
-               		
+                     
                </script>
                 <tr>
                   <td class="td_name">성별</td>
                   <td class="td_text">
-		            <label for="radio"><input id= "radio" type="radio" name="cust_gender" checked >여자</label>
-				 	<label for="radio"><input id= "radio" type="radio" name="cust_gender" >남자</label>
+                  <label for="radio"><input id= "radio" type="radio" name="cust_gender" checked >여자</label>
+                <label for="radio"><input id= "radio" type="radio" name="cust_gender" >남자</label>
                   </td>
                </tr>
-               
-    			<tr>
+
+             <tr>
                   <td class="td_name">이메일</td>
                   <td class="td_text">
                   <input id="emailId" style="width: 200px; text-align: left;" type="text" name="cust_email1" autocomplete=”off” required>
                   <span>@</span>
                   <input id="textEmail" style="width: 200px; text-align: left;" placeholder="이메일을 선택하세요." name="cust_email2" autocomplete=”off” required>
                      <select id="select">
-                        <option value="" disabled selected>직접 입력</option>
+                        <option value="" selected>직접 입력</option>
                         <option value="naver.com" id="naver.com">naver.com</option>
                         <option value="nate.com" id="nate.com">nate.com</option>
                         <option value="gmail.com" id="gmail.com">gmail.com</option>
                         <option value="hangmail.net" id="hangmail.net">hangmail.net</option>
                         <option value="hotmail.com" id="hotmail.com">hotmail.com</option>
-                  	</select>
-                  	</td>
+                     </select>
+                     <h5 id="emailcheck"></h5>
+                     </td>
                </tr>
                
                <tr>
                   <td class="td_name">생년월일</td>
                   <td class="td_text">
-                  <input style="width: 200px; text-align: left;" type="date" name="cust_birthday_date" autocomplete=”off” required></td>
+                  <input id="cust_birthday_date" style="width: 200px; text-align: left;" type="date" name="cust_birthday_date" autocomplete=”off” required>
+                   <h5 id = "birthdaycheck"></h5></td>
+                 
                </tr>
   
 
@@ -170,9 +310,9 @@
                <tr>
                   <td class="td_name">휴대폰번호</td>
                   <td class="td_text">
-                  <input type="number" style="width: 200px; text-align: left;" type="text" name="cust_pnum1" autocomplete=”off”  required>-
-                  <input type="number" style="width: 200px; text-align: left;" type="text" name="cust_pnum2" autocomplete=”off”  required>-
-                  <input type="number" style="width: 200px; text-align: left;" type="text" name="cust_pnum3" autocomplete=”off”  required></td>
+                  <input id="cust_pnum1" type="number" style="width: 200px; text-align: left;" type="text" name="cust_pnum1" autocomplete=”off”  required>-
+                  <input id="cust_pnum2" type="number" style="width: 200px; text-align: left;" type="text" name="cust_pnum2" autocomplete=”off”  required>-
+                  <input id="cust_pnum3" type="number" style="width: 200px; text-align: left;" type="text" name="cust_pnum3" autocomplete=”off”  required></td>
                </tr>
                
                <tr>
@@ -188,7 +328,7 @@
             </tbody>
          </table>
          <div class="button">
-            <input type="submit" class="btn btn-success" value="회원가입"> <input
+            <input type="submit" class="btn btn-success" value="회원가입" id ="submit"> <input
                onclick="location.href='/opalproject/main'" type="button"
                class="btn btn-secondary" value="취소">
          </div>
@@ -200,86 +340,106 @@
    <!-- 주소 및 이메일을 입력 시 input창에 들어가는 것까지 구현 -->
 
 
-   <footer>
-      <h3>홈페이지 정보(바닥 글)</h3>
-   </footer>
-   <!--footer 끝-->
+<footer class="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="footer-col col-md-4"></div>
+					<div class="footer-col col-md-4">
+						<img src="resources/images/Opal.png" width="150" alt="">
+						<h5>with Health</h5>
+					</div>
+					<div class="footer-col col-md-4"></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer -->
 </body>
+
 <!-- 다음 주소 API 스크립트 -->
-<script
-   src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-   function sample6_execDaumPostcode() {
-      new daum.Postcode(
-            {
-               oncomplete : function(data) {
-                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	function sample6_execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                  // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                  // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                  var addr = ''; // 주소 변수
-                  var extraAddr = ''; // 참고항목 변수
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var addr = ''; // 주소 변수
+						var extraAddr = ''; // 참고항목 변수
 
-                  //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                     addr = data.roadAddress;
-                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                     addr = data.jibunAddress;
-                  }
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
 
-                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                  if (data.userSelectedType === 'R') {
-                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                     if (data.bname !== ''
-                           && /[동|로|가]$/g.test(data.bname)) {
-                        extraAddr += data.bname;
-                     }
-                     // 건물명이 있고, 공동주택일 경우 추가한다.
-                     if (data.buildingName !== ''
-                           && data.apartment === 'Y') {
-                        extraAddr += (extraAddr !== '' ? ', '
-                              + data.buildingName : data.buildingName);
-                     }
-                     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                     if (extraAddr !== '') {
-                        extraAddr = ' (' + extraAddr + ')';
-                     }
-                     // 조합된 참고항목을 해당 필드에 넣는다.
-                     document.getElementById("sample6_extraAddress").value = extraAddr;
+						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+						if (data.userSelectedType === 'R') {
+							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+							if (data.bname !== ''
+									&& /[동|로|가]$/g.test(data.bname)) {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있고, 공동주택일 경우 추가한다.
+							if (data.buildingName !== ''
+									&& data.apartment === 'Y') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+							if (extraAddr !== '') {
+								extraAddr = ' (' + extraAddr + ')';
+							}
+							// 조합된 참고항목을 해당 필드에 넣는다.
+							document.getElementById("sample6_extraAddress").value = extraAddr;
 
-                  } else {
-                     document.getElementById("sample6_extraAddress").value = '';
-                  }
+						} else {
+							document.getElementById("sample6_extraAddress").value = '';
+						}
 
-                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                  document.getElementById('sample6_postcode').value = data.zonecode;
-                  document.getElementById("sample6_address").value = addr;
-                  // 커서를 상세주소 필드로 이동한다.
-                  document.getElementById("sample6_detailAddress")
-                        .focus();
-               }
-            }).open();
-   }
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('sample6_postcode').value = data.zonecode;
+						document.getElementById("sample6_address").value = addr;
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("sample6_detailAddress")
+								.focus();
+					}
+				}).open();
+	}
 </script>
 <!-- 다음 주소 API 스크립트 끝-->
 <!-- 메일 셀렉트 스크립트 함수. jquery 로드해야 실행된다.-->
 <script>
-   $(function() {
-      $('#select').change(function() {
-         if ($('#select').val() == 'directly') {
-            $('#textEmail').attr("disabled", false);
-            $('#textEmail').val("");
-            $('#textEmail').focus();
-         } else {
-            $('#textEmail').val($('#select').val());
-         }
-      })
-   });
+	$(function() {
+		$('#select').change(function() {
+			if ($('#select').val() == 'directly') {
+				$('#textEmail').attr("disabled", false);
+				$('#textEmail').val("");
+				$('#textEmail').focus();
+			} else {
+				$('#textEmail').val($('#select').val());
+			}
+		})
+	});
 </script>
 <!-- 메일 셀렉트 스크립트 끝-->
-<script src="resources/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="resources/_vendor/popper.js/dist/umd/popper.min.js"></script>
-<script src="resources/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="resources/_assets/js/custom.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="resources/js/jquery.min.js"><\/script>')
+	</script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/jquery.flexslider-min.js"></script>
+	<script src="resources/js/jquery.fancybox.pack.js"></script>
+	<script src="resources/js/jquery.waypoints.min.js"></script>
+	<script src="resources/js/retina.min.js"></script>
+	<script src="resources/js/modernizr.js"></script>
+	<script src="resources/js/main.js"></script>
 </html>

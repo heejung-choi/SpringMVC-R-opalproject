@@ -25,6 +25,13 @@ public class MainController {
 		return "about";
 	}
 	// 소개 페이지 컨트롤러 -- 클래스 분할해서 사용해도 됨
+	
+	@RequestMapping(value = "/team")
+	public String team() {
+
+		return "team";
+	}
+	// 팀 소개 페이지 컨트롤러 -- 클래스 분할해서 사용해도 됨
 
 	@RequestMapping(value = "/datamain")
 	public String datamain() {

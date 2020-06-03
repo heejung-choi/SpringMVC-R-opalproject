@@ -2,9 +2,8 @@ package model.dao;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -18,14 +17,14 @@ public class MemberSignUpDAO {
 	SqlSession session = null;
 	
 	@Autowired
-	private PasswordEncoder pwencoder;
+	private BCryptPasswordEncoder pwencoder;
 	
 	@Autowired
 	private DataSource ds;
 	
 	public boolean insertMember(CustomerVO vo) {
 		boolean result = false;
-		vo.setCust_pw("{noop}"+pwencoder.encode(vo.getCust_pw()));
+		vo.setCust_pw(pwencoder.encode(vo.getCust_pw()));
 		System.out.println(vo);
 		String statement = "resource.MemberMapper.customerSignUp";
 		if (session.insert(statement, vo) == 1)

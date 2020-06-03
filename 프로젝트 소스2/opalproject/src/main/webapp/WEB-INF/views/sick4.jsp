@@ -3,145 +3,198 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-#chartdiv {
+
+#wordchart {
 	width: 100%;
-	height: 600px;
+	height: 400px;
+	
 }
+#chartdiv{
+  width: 100%;
+  height: 400px;
+ 
+}
+
+
 </style>
 </head>
 <body>
+	<h4>
+	오팔세대, 오늘이 더 행복한 이유<br>
+	</h4>
+	<h5>
+	인생의 하프타임에서 선 이땅에 수많은 오팔세대를 위해, 오늘 더 행복해질 수 있도록 오팔이 함께하겠습니다!<br>
+	건강한 삶을 살기 위해서 58년생이 자주걸리는 질병을 알고, 건강한 삶을 살기 위한 습관을 갖춰야 합니다.<br>
+	58년생이 건강하게 살려면 어떻게 해야 할까요? 58년생들은 현재 어떻게 살고있을까요?<br>
+	<br>
+	58세대의 다빈도 질병을 분석한 결과, 양방 입원: 추간판 , 양방 통원: 치주질환, 한방입원: 등통증, 한방통원: 등통증이 가장 많았습니다.<br>
+	최근 3년간 건강보험 환자수를 기준으로 보았을 때에는 추간판장애와 치주질환이 가장 많은것으로 나타났습니다. 그다음으로는 기관지염, 노년백내장, 어깨병변, 고혈압 등이 많았습니다.
+	</h5>
 	<!-- Resources -->
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+	<script src="https://www.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/frozen.js"></script>
 
-	<!-- Chart code -->
-	<script>
+<!-- Chart code -->
+<script>
 am4core.ready(function() {
 
 // Themes begin
+am4core.useTheme(am4themes_frozen);
 am4core.useTheme(am4themes_animated);
 // Themes end
 
 
-var chart = am4core.create("chartdiv", am4charts.RadarChart);
-var chartex =new Array(297,16.3,2.64,0.53,78.89,66.71,4.5,72,1.44,36,113,682,27,3.41,4,0.076,1.11,8,0.23,0);
 
-chart.data = [{
- "영양성분": "에너지",
- "visits": chartex[0]
-}, {
- "영양성분": "수분",
- "visits": chartex[1]
-}, {
- "영양성분": "단백질",
- "visits": chartex[2]
-}, {
- "영양성분": "지질",
- "visits": chartex[3]
-}, {
- "영양성분": "탄수화물",
- "visits": chartex[4]
-}, {
- "영양성분": "총 당류",
- "visits": chartex[5]
-}, {
- "영양성분": "총 식이섬유",
- "visits":chartex[6]
-}, {
- "영양성분": "칼슘",
- "visits": chartex[7]
-}, {
- "영양성분": "철",
- "visits": chartex[8]
-}, {
- "영양성분": "마그네슘",
- "visits": chartex[9]
-}, {
- "영양성분": "인",
- "visits": chartex[10]
-}, {
- "영양성분": "칼륨",
- "visits": chartex[11]
-}, {
- "영양성분": "나트륨",
- "visits": chartex[12]
-}, {
- "영양성분": "셀레늄",
- "visits": chartex[13]
-}, {
- "영양성분": "베타카로틴",
- "visits": chartex[14]
-}, {
- "영양성분": "비타민B1",
- "visits": chartex[15]
-}, {
-"영양성분": "비타민B2",
-"visits": chartex[16]
-}, {
- "영양성분": "엽산",
- "visits": chartex[17]
-}, {
- "영양성분": "비타민C",
- "visits": chartex[18]
-}, {
- "영양성분": "비타민D",
- "visits": chartex[19]
-}];
+var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+var networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
 
-chart.innerRadius = am4core.percent(40)
+chart.data = [
+  {
+    name: "다빈도 질병 TOP5",
+        children: [
+          {name: "양방입원",
+        
+        	  children: [
+                  { name: "추간판", value: 71671 },
+                  { name: "백내장", value: 53514 },
+                  { name: "어깨", value: 48760 },
+                  { name: "위/결장", value:35076 },
+                  { name: "치핵", value: 34798 },
+        
+        ]
+      },{name: "양방통원",
+        
+            children: [
+            	{ name: "치주질환", value: 3643892 },
+                { name: "기관지염", value: 2063698},
+                { name: "고혈압", value: 1717552 },
+                { name: "등통증", value:1126389 },
+                { name: "위식도", value: 1023345 }
+        
+        ]
+      },{name: "한방입원",
+          
+          children: [
+          	{ name: "등통증", value: 11990 },
+              { name: "요추/골반", value: 9694 },
+              { name: "추간판", value: 8892 },
+              { name: "무릎", value:2262 },
+              { name: "경추간판", value: 2377 }
+      
+      ]
+    },{name: "한방통원",
+        
+        children: [
+        	{ name: "등통증", value: 856029 },
+            { name: "요추/골반", value: 487189 },
+            { name: "연조직장애", value: 465989 },
+            { name: "근육장애", value: 271534 },
+            { name: "발목/발염좌", value: 197552 }
+    
+    ]
+  }
 
-var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.dataFields.category = "영양성분";
-categoryAxis.renderer.minGridDistance = 60;
-categoryAxis.renderer.inversed = true;
-categoryAxis.renderer.labels.template.location = 0.5;
-categoryAxis.renderer.grid.template.strokeOpacity = 0.08;
+    ],
+  }
+];
 
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.min = 0;
-valueAxis.extraMax = 0.1;
-valueAxis.renderer.grid.template.strokeOpacity = 0.08;
+networkSeries.dataFields.value = "value";
+networkSeries.dataFields.name = "name";
+networkSeries.dataFields.children = "children";
+networkSeries.nodes.template.tooltipText = "{name}:{value}";
+networkSeries.nodes.template.fillOpacity = 1;
 
-chart.seriesContainer.zIndex = -10;
+networkSeries.nodes.template.label.text = "{name}"
+networkSeries.fontSize = 5;
 
+networkSeries.links.template.strokeWidth = 1;
 
-var series = chart.series.push(new am4charts.RadarColumnSeries());
-series.dataFields.categoryX = "영양성분";
-series.dataFields.valueY = "visits";
-series.tooltipText = "{valueY.value}"
-series.columns.template.strokeOpacity = 0;
-series.columns.template.radarColumn.cornerRadius = 5;
-series.columns.template.radarColumn.innerCornerRadius = 0;
+var hoverState = networkSeries.links.template.states.create("hover");
+hoverState.properties.strokeWidth = 3;
+hoverState.properties.strokeOpacity = 1;
 
-chart.zoomOutButton.disabled = true;
+networkSeries.nodes.template.events.on("over", function(event) {
+  event.target.dataItem.childLinks.each(function(link) {
+    link.isHover = true;
+  })
+  if (event.target.dataItem.parentLink) {
+    event.target.dataItem.parentLink.isHover = true;
+  }
 
-// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", (fill, target) => { return chart.colors.getIndex(target.dataItem.index);
-});
+})
 
-setInterval(()=>{
- am4core.array.each(chart.data, (item)=>{ 
-
- })
- chart.invalidateRawData();
-}, 6000)
-
-categoryAxis.sortBySeries = series;
-
-chart.cursor = new am4charts.RadarCursor();
-chart.cursor.behavior = "none";
-chart.cursor.lineX.disabled = true;
-chart.cursor.lineY.disabled = true;
+networkSeries.nodes.template.events.on("out", function(event) {
+  event.target.dataItem.childLinks.each(function(link) {
+    link.isHover = false;
+  })
+  if (event.target.dataItem.parentLink) {
+    event.target.dataItem.parentLink.isHover = false;
+  }
+})
 
 }); // end am4core.ready()
 </script>
+<!-- HTML -->
+<h6>최근 1년간 58세대 양방/한방에 대한 입원 외래 질병별 환자수 Top5 [단위:명]<br>
+[출처:보건의료빅데이터/다빈도 질병 통계]
+</h6>
 
-	<!-- HTML -->
-	<div id="chartdiv"></div>
+<div id="chartdiv"></div>
+	<!-- Chart code -->
+
+	<script>
+		am4core
+				.ready(function() {
+
+					// Themes begin
+					am4core.useTheme(am4themes_material);
+					am4core.useTheme(am4themes_animated);
+					// Themes end
+
+					var chart = am4core.create("wordchart",
+							am4plugins_wordCloud.WordCloud);
+					var series = chart.series
+							.push(new am4plugins_wordCloud.WordCloudSeries());
+
+					series.accuracy = 4;
+					series.step = 15;
+					series.rotationThreshold = 0.7;
+					series.maxCount = 200;
+					series.minWordLength = 2;
+					series.labels.template.margin(4, 4, 4, 4);
+					series.maxFontSize = am4core.percent(30);
+
+					series.text ="추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 무릎 관절증 어지럼증 협심증 전정기능 요추 골반 등통증 백내장 다리골절 발골절 하지정맥류 신장결석 요관결석 장질환 무릎염좌 무릎탈구 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 무릎 관절증 어지럼증 협심증 전정기능 요추 골반 등통증 백내장 다리골절 발골절 하지정맥류 신장결석 요관결석 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 무릎 관절증 어지럼증 협심증 전정기능 요추 골반 등통증 백내장 다리골절 발골절 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 무릎 관절증 어지럼증 협심증 전정기능 요추 골반 등통증 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 무릎 관절증 어지럼증 협심증 전정기능 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 무릎 관절증 어지럼증 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 경추간판 무릎장애 추간판장애 노년백내장 어깨병변 위장염 결장염 치핵 척추병증 추간판장애 노년백내장 어깨병변 위장염 결장염 추간판장애 노년백내장 어깨병변 위장염 결장염 추간판장애 노년백내장 추간판장애 노년백내장 추간판장애 노년백내장 추간판장애 추간판장애 추간판장애 추간판장애 추간판장애 추간판장애 추간판장애"
+					series.colors = new am4core.ColorSet();
+					series.colors.passOptions = {}; // makes it loop
+
+					//series.labelsContainer.rotation = 45;
+					series.angles = [ 0, -90 ];
+					series.fontWeight = "700"
+
+					setInterval(function() {
+						series.dataItems.getIndex(
+								Math.round(Math.random()
+										* (series.dataItems.length - 1)))
+								.setValue("value",
+										Math.round(Math.random() * 10));
+					}, 10000)
+
+				}); // end am4core.ready()
+	</script>
+<h6>다빈도 질병 58세대 이전 3년간 현황 Top30<br>
+[출처:보건의료빅데이터/다빈도 질병 통계]
+</h6>		
+	<div id="wordchart"></div>
+	
+
 </body>
 </html>

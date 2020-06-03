@@ -12,11 +12,17 @@ public class IndexController {
 		return "index";
 	}
 	
-	
-	@RequestMapping(value="/index2")
-	public String index2() {
+	@RequestMapping(value="/mypage")
+	public String mypage() {
 		
-		return "index2";
+		return "mypage";
 	}
+	
+	@RequestMapping(value="/meminfomodify")
+	public String meminfomodify() {
+		
+		return "memInfoModify";
+	}
+	
 
 }

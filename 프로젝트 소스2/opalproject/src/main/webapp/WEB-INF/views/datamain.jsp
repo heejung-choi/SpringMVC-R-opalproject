@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -16,10 +18,14 @@
 <link rel="stylesheet" href="resources/ourcss/main.css">
 <link rel="stylesheet" href="resources/ourcss/datamain.css">
 
-    <link href="resources/themes/1/js-image-slider1.css" rel="stylesheet" type="text/css" />
-    <link href="resources/themes/1/js-image-slider2.css" rel="stylesheet" type="text/css" />
-    <script src="resources/themes/1/js-image-slider.js" type="text/javascript"></script>
-    <link href="resources/ourcss/generic.css" rel="stylesheet" type="text/css" />
+<link href="resources/themes/1/js-image-slider1.css" rel="stylesheet"
+	type="text/css" />
+<link href="resources/themes/1/js-image-slider2.css" rel="stylesheet"
+	type="text/css" />
+<script src="resources/themes/1/js-image-slider.js"
+	type="text/javascript"></script>
+<link href="resources/ourcss/generic.css" rel="stylesheet"
+	type="text/css" />
 
 
 </head>
@@ -90,7 +96,8 @@
 							style="padding-right: 4rem;" href="#">식단추천</a></li>
 						<li class="nav-item2"><a class="nav-link"
 							style="padding-right: 4rem;" href="#">정기결제</a></li>
-							    <li class="nav-item2"><a class="nav-link" style="padding-right: 4rem;" href="/opalproject/goodsInsertForm">상품등록</a></li>
+						<li class="nav-item2"><a class="nav-link"
+							style="padding-right: 4rem;" href="/opalproject/goodsInsertForm">상품등록</a></li>
 					</ul>
 				</div>
 			</div>
@@ -121,33 +128,35 @@
 				onclick="location.href='http://localhost:8000/opalproject/datasick5'">대장/췌장</button>
 		</div>
 		<br>
-		
+
 		<div class="infomainwrap">
 			<div class="infomain1">
 				<h1>58세대 다빈도 질병(통원)</h1>
 			</div>
-			<br><br>
+			<br>
+			<br>
 			<div id="sliderFrame1">
-        <div id="slider1">
-            <img  src="resources/img/inmain1.png" alt="통원 질병 WORDCLOUD" />
-            <img src="resources/img/inmain2.png" />
-            <img src="resources/img/inmain3.png" alt="많이 걸리는 3대 통원질병 비교" />
-        </div>
-    </div>
-    </div>
- 	<div class="infomainwrap2">		
+				<div id="slider1">
+					<img src="resources/img/inmain1.png" alt="통원 질병 WORDCLOUD" /> <img
+						src="resources/img/inmain2.png" /> <img
+						src="resources/img/inmain3.png" alt="많이 걸리는 3대 통원질병 비교" />
+				</div>
+			</div>
+		</div>
+		<div class="infomainwrap2">
 			<div class="infomain2">
 				<h1>58세대 다빈도 질병(입원)</h1>
-			</div>			
-			<br><br>
+			</div>
+			<br>
+			<br>
 			<div id="sliderFrame2">
-        <div id="slider2">
-            <img  src="resources/img/inmain4.png" alt="입원 질병 WORDCLOUD" />
-            <img src="resources/img/inmain5.png" />
-            <img src="resources/img/inmain6.png" alt="많이 걸리는 3대 입원질병 비교" />
-        </div>
-    </div>
-    </div>		
+				<div id="slider2">
+					<img src="resources/img/inmain4.png" alt="입원 질병 WORDCLOUD" /> <img
+						src="resources/img/inmain5.png" /> <img
+						src="resources/img/inmain6.png" alt="많이 걸리는 3대 입원질병 비교" />
+				</div>
+			</div>
+		</div>
 
 	</section>
 

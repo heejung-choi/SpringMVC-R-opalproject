@@ -13,16 +13,18 @@ import org.springframework.web.servlet.ModelAndView;
 public class DataController {
 
 		@Autowired
-	/*
-	 * SickfoodDAO dao;
-	 * 
-	 * @RequestMapping(value = "/datasick1", method = RequestMethod.GET) public
-	 * ModelAndView datasick1(DataVO vo) { ModelAndView mav = new ModelAndView();
-	 * List<DataVO> list =dao.csickData1(); mav.addObject("list", list);
-	 * mav.setViewName("datasick1"); return mav;
-	 * 
-	 * }
-	 */
+
+/*
+ * 		DataDAO dao;
+	@RequestMapping(value = "/datasick1", method = RequestMethod.GET)
+	public ModelAndView datasick1(DataVO vo) {
+		ModelAndView mav = new ModelAndView();
+	    List<DataVO> list =dao.csickData1();
+	    mav.addObject("list", list);
+	    mav.setViewName("datasick1");
+		return mav;
+			
+	}*/
 		
 	@RequestMapping(value = "/datasick1")
 	public String datasick1() {
