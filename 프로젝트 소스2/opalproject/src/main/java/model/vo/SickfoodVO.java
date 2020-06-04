@@ -47,6 +47,8 @@ public class SickfoodVO {
 		this.food_img = food_img;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "SickfoodVO[food_cd=" + food_cd + ", food_name=" + food_name + ", sick_cd=" + sick_cd + ",food_img="

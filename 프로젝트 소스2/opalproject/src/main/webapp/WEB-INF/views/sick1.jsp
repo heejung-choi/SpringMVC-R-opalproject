@@ -110,12 +110,15 @@
       <%String[] sickname ={"질병","치주질환","기관지염/비염","고혈압","척추질환","식도/위/식이지장염","장염/결장염","피부염","당뇨병","백내장","무릎관절증","어지럼증","어깨병변"}; %>
       <!--20200529 희정 좋은 음식 출력 부분 시작 -->
       <% int goodnum=0; %>
+      <div class="div_1">      
       <div >      
             <%for(int j=0; j<goodlist.size();j++) {%>      
       <img class="good_food" src="<%=goodlist.get(j).getfood_img()%>">
-      <span><%=sickname[Integer.parseInt(goodlist.get(j).getSick_cd())]%>:<%=goodlist.get(j).getfood_name()%></span>
-      	<%} %>
- </div>     
+      <span class="span_1"><%=sickname[Integer.parseInt(goodlist.get(j).getSick_cd())]%>:<%=goodlist.get(j).getfood_name()%></span>      
+      <%goodnum++; if(goodnum%4==0){%>
+       </div><br><div class="div_1">
+      <%}}%>
+   </div>
  
       <!--20200529 희정 좋은 음식 출력 부분 끝 -->         
       <%System.out.println("-----------"+badlist.get(0).getSick_cd()); %>
@@ -129,15 +132,15 @@
       <%} %>에 나쁜 음식에 대해 소개해드리겠습니다. <br>
    </h3>
          <!--20200529 희정 나쁜 음식 출력 부분 시작 -->
-      <div >      
+         <% int badnum=0; %>
+      <div class="div_1">      
             <%for(int j=0; j<badlist.size();j++) {%>      
       <img class="good_food" src="<%=badlist.get(j).getfood_img()%>">
       <span><%=sickname[Integer.parseInt(badlist.get(j).getSick_cd())]%>:<%=badlist.get(j).getfood_name()%>
-      
-      </span>
-   
-      	<%} %>
- </div>
+      <%badnum++; if(badnum%4==0){%>
+       </div><br><div class="div_1">
+      <%}}%>
+   </div>
       <!--20200529 희정 좋은 음식 출력 부분 끝 -->
 
 
