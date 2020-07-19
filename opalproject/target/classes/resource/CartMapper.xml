@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="resource.cartMapper">
+
+
+	<!-- 1. 장바구니 추가 -->
+	<insert id="insertCart">
+		INSERT INTO cart(
+			cart_cd, cust_cd, product_cd, cart_amount
+		) VALUES (
+			cart_seq.NEXTVAL, #{cust_cd}, #{product_cd}, #{cart_amount}
+		)
+	</insert>
+	
+	<!-- 2. 장바구니 목록 -->
+	<select id="listCart" parameterType="_int" resultType="model.vo.CartVO">
+
+		SELECT
+			c.cart_cd AS cart_cd, 
+			m.cust_cd AS cust_cd, 
+			p.product_cd AS product_cd, 
+			m.cust_name AS cust_name, 
+			p.product_name AS product_name, 
+			c.cart_amount AS cart_amount, 
+			p.product_price AS product_price, 
+			(p.product_price * c.cart_amount) money
+		FROM
+			customer m, product p, cart c
+		WHERE m.cust_cd = c.cust_cd
+			AND p.product_cd = c.product_cd
+			AND c.cust_cd = #{cust_cd}
+		ORDER BY
+			c.cart_cd
+
+		<!--  	
+		SELECT
+			p.product_id AS productId,
+			p.product_name AS productName, 
+			product_price AS productPrice,
+			SUM(amount) amount, 
+			SUM(product_price * amount) money
+		FROM
+			tbl_member m, tbl_product p, tbl_cart c
+		WHERE 
+			m.user_id = c.user_id 
+		AND p.product_id = c.product_id
+		AND m.user_id = #{userId} 
+		GROUP BY p.product_id, p.product_name, p.product_price
+		ORDER BY amount DESC
+		 -->	
+	</select>
+
+	<!-- 3. 장바구니 전체 금액 -->
+	<select id="sumMoney" resultType="int">
+		SELECT NVL(SUM(p.product_price * c.cart_amount), 0) money
+		FROM 
+		  cart c, product p
+		WHERE 
+		  c.product_cd = p.product_cd AND c.cust_cd = #{cust_cd}
+	</select>
+
+	<!-- 4. 장바구니 수정 -->
+	<update id="modifyCart">
+		UPDATE cart	SET cart_amount = #{cart_amount} 
+		WHERE cust_cd= #{cust_cd} AND product_cd = #{product_cd}
+	</update>
+
+
+	<!-- 5. 장바구니 삭제 -->
+	<delete id="deleteCart">
+		DELETE FROM cart WHERE cart_cd = #{cart_cd}
+	</delete>
+
+	<!-- 6. 장바구니에 기존의 상품이 존재하는지 확인 -->
+	<select id="countCart" resultType="int">
+		SELECT COUNT(*) FROM cart 
+		WHERE cust_cd= #{cust_cd} AND product_cd = #{product_cd}
+	</select>
+
+	<!-- 7. 장바구니에 기존의 상품이 존재하면 수정 -->
+	<update id="updateCart" parameterType="java.util.HashMap">
+		UPDATE cart	SET cart_amount = (cart_amount + #{cart_amount})
+		WHERE cust_cd= #{cust_cd} AND product_cd = #{product_cd}
+	</update>
+</mapper>

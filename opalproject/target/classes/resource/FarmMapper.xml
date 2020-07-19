@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="resource.farmMapper">
+  
+ 
+   
+  	<!-- 상품 리스트 올 -->
+  	<select id="selectFarm" resultType="model.vo.FarmVO">
+  		select farm_cd, farm_name, farm_pnum, farm_content, farm_url 
+    	from farm
+  	</select>
+  	
+  	<select id="selectFarmGap" resultType="model.vo.FarmVO">
+  		select distinct f.farm_cd, f.farm_name, f.farm_pnum, f.farm_content, g.gap_cd, f.farm_url 
+    	from farm f, gap g
+        where f.farm_cd=g.farm_cd
+  	</select>
+  	
+  	<select id="selectFarmOrganic" resultType="model.vo.FarmVO">
+  		select distinct f.farm_cd, f.farm_name, f.farm_pnum, f.farm_content, o.organic_cd, f.farm_url 
+    	from farm f, organic o
+        where f.farm_cd=o.farm_cd
+  	</select>
+  	
+  	
+	<!-- 상품 상세보기 -->
+	<select id="selectone" resultType="model.vo.FarmVO">
+		select farm_cd, farm_name, farm_pnum, farm_content, farm_url 
+    	from farm where farm_cd=#{farm_cd}
+	</select>
+
+
+ 
+  	
+  </mapper>
