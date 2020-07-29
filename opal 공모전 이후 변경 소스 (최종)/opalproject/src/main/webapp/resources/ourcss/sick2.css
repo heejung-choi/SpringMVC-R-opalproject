@@ -1,0 +1,130 @@
+.logo{
+	width:100px;
+}
+h2 {
+	margin-top : 100px;
+	text-align : center;
+}
+
+h3 {
+	margin-top : 100px;
+	margin-bottom : 50px;
+	text-align : center;
+	font-weight:bold;
+}
+
+h4 {
+	margin-bottom : 50px;
+	text-align : center;
+	font-weight:bold;
+}
+
+.badfood_h4 {
+	margin-bottom : 50px;
+	text-align : center;
+	margin-right : 100px;
+}
+
+h5 {
+	font-size : 20px;
+	margin-bottom : 15px;
+	font-weight:bold;
+}
+
+
+.wrapper{
+	width:90%;
+	margin:50px auto;
+}
+
+#columns{
+	column-count:4;
+	column-gap:0px;
+	text-align:center;
+	font-size:20px;
+	font-weight:bold;
+}
+
+.card{
+	height:250px;
+}
+
+.img_1{
+width: 200px;
+height: 150px;
+}
+
+
+.foodwrapper{
+	width:100%;
+	text-align:center;
+}
+
+.foodwrapper2{
+	width:100%;
+	text-align:center;
+	margin-top : 20px;
+}
+
+.check_sumit {
+	background-color: #86B404;
+	border: none;
+	color: white;
+	padding: 10px 30px;
+	width: 400px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	margin: auto;
+	text-align: center;
+	font-family: 'Do Hyeon', san-serif;
+	font-size: 30px;
+}
+
+.check_sumit {
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+
+  transition-duration: 0.4s;
+
+}
+
+.check_sumit:hover, .check_sumit:focus {
+	background-color: #312f4a;
+	color: #fff;
+}
+
+
+.footer{
+	margin-top:100px;
+}
+
+.banner {
+	background-image: url(../images/food_blue.PNG);
+	background-position: center top;
+	background-repeat: no-repeat;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
+	min-height: 200px;
+}
+
+.banner-text {
+	padding-top: 25%;
+}
+
+.banner-text h1 {
+	color: black;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.banner-text p {
+	color: #fff;
+	font-size: 22px;
+	font-weight: 300;
+	line-height: 1.5;
+	margin-bottom: 80px;
+}
+

@@ -1,0 +1,51 @@
+.timer{
+	margin-top : 200px;
+	
+}
+
+.timer h4 {
+	font-weight:bold;
+}
+
+.logout_button2 {
+    background-color: #312f4a;
+    /* margin-left: 40px; */
+    border: none;
+    width: 140px;
+    height: 20px;
+    color: white;
+    margin-top: 0px;
+    padding: 0px 0px;
+    font-weight: bold;
+    font-family: "Raleway", sans-serif;
+}
+
+.banner {
+	background-image: url(../images/food_blue.PNG);
+	background-position: center top;
+	background-repeat: no-repeat;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
+	min-height: 200px;
+}
+
+.banner-text {
+	padding-top: 25%;
+}
+
+.banner-text h1 {
+	color: black;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.banner-text p {
+	color: #fff;
+	font-size: 22px;
+	font-weight: 300;
+	line-height: 1.5;
+	margin-bottom: 80px;
+}

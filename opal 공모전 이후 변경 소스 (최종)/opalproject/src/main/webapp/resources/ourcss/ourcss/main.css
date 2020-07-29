@@ -1,0 +1,136 @@
+
+<!--화면단을 구성하는 스타일 태그들을 따로 분류한 css 파일.-->
+<!--일부러 화면단과 분류해서 코드를 나눠놨습니다.-->
+<!--링크로 가져오면 됩니다. 가져오는 순서는 부트스트랩-현 css 파일 순입니다 . -->
+	
+body {
+	margin: auto;
+}
+
+.logo h1 {
+	margin: 0 0 0 0;
+	width: 60%;
+	height: 65%;
+	float: left;
+}
+
+.main_nav {
+	width: 100%;
+	height: 30%;
+}
+
+.top_nav {
+	width: 40%;
+	height: 65%;
+	padding-margin: auto;
+	float: right;
+}
+
+.bs-component1 {
+	float: right;
+}
+
+.navbar-nav2 {
+	margin: auto;
+}
+
+.header_wrap {
+	height: 150px;
+}
+
+.top_nav li {
+	float: left;
+	padding: 0 15px;
+	list-style: none;
+}
+
+.top_nav a {
+	line-heigt: 75px;
+}
+
+.word_ranking {
+	height: 400px;
+	padding-top: 50px;
+	padding-right: 100px;
+	padding-left: 100px;
+}
+
+.word_inner {
+	background-color: #BDBDBD;
+	width: 65%;
+	height: 100%;
+	float: left;
+}
+
+.ranking_inner {
+	background-color: #cc99ff;
+	width: 30%;
+	height: 100%;
+	float: right;
+}
+
+.search_box {
+	width: 100%;
+	height: 100px
+}
+
+.search_inner {
+	width: 85%;
+	height: 50%;
+	margin: auto;
+}
+
+.map {
+	height: 400px;
+	padding-right: 100px;
+	padding-left: 100px;
+}
+
+.map_inner {
+	background-color: #99ccff;
+	height: 100%;
+	margin: auto;
+}
+
+.graph {
+	height: 400px;
+	padding-right: 100px;
+	padding-left: 100px;
+}
+
+.graph_one {
+	background-color: #99ccff;
+	width: 45%;
+	height: 100%;
+	float: left;
+}
+
+.graph_two {
+	background-color: #cc99ff;
+	width: 45%;
+	height: 100%;
+	float: right;
+}
+
+.main {
+	height: 2000px;
+	margin-top : 100px;
+}
+
+hr {
+	width: 90%;
+	background-color: #BDBDBD;
+	margin: 0px auto;
+	margin-top : 100px;
+	margin-bottom : 100px;
+}
+
+footer {
+	position: absolute;
+    bottom:0; 
+	width: 100%;
+	height: 150px;
+	clear: both;
+	background-color: lightgray;
+	text-align: center;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="resource.goodsMapper">
+  
+ 
+   
+  	<!-- 상품 리스트 올 -->
+  	<select id="selectGoods" resultType="model.vo.GoodsVO">
+  	select product_cd, product_name, product_content, product_price, product_su, product_url 
+    	from product
+  	</select>
+  	
+  	
+  	
+  	
+  	 <select id="selectGoodssick" resultType="model.vo.GoodsVO">
+  	select product_cd, product_name, product_content, product_price, product_su, product_url 
+    from product
+    where product_cd=#{1}
+    
+  	</select>
+  	
+	<!-- 상품 상세보기 -->
+	<select id="selectone" parameterType="_int" resultType="model.vo.GoodsVO">
+		select product_cd, product_name, product_content, product_price, product_su, product_url 
+    	from product where product_cd=#{product_cd}
+	</select>
+	
+	<select id="selectGoodsFarm" resultType="model.vo.GoodsVO">
+		select farm_cd,product_cd, product_name, product_content, product_price, product_su, product_url 
+    	from product where farm_cd=#{farm_cd}
+	</select>
+
+  </mapper>

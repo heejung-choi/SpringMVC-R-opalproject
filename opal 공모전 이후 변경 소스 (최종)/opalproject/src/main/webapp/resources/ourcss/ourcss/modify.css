@@ -1,0 +1,53 @@
+
+
+.modify{
+	height:400px;
+}
+
+.checkpwd h3 {
+	text-align : left;
+}
+
+.checkpwd h5 {
+	text-align : left;
+	margin-bottom : 50px;
+}
+
+.checkpwd{
+	width:100%;
+	margin-top : 100px;
+	text-align : center;
+}
+
+.checkpwd_board{
+	border : 1px solid #848484;
+	width : 500px;
+	height : 300px;
+	padding : 30px;
+	margin : 20px auto;
+}
+
+#checkPassword{
+	width : 400px;
+	height : 40px;
+	border: 2px solid #dadada;
+	padding : 20px;
+}
+
+#checkPassword:focus { 
+    outline: none;
+    border-color: #86B404;
+    box-shadow: 0 0 10px #86B404;
+}
+
+
+.checkpwd_sumit {
+	width : 400px;
+	height : 40px;
+	padding : 10px;
+	background-color : #86B404;
+	border : none;
+	color : #fff;
+	font-size : 15px;
+	font-weight : bold;
+}
